@@ -3,112 +3,142 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import numpy as np
 
-# Configuració de la pàgina
-st.set_page_config(page_title="POLITIC-CAT", layout="centered")
+st.set_page_config(page_title="POLITIC-CAT PRO", layout="centered")
 
-# Estils personalitzats
-st.markdown("""
-    <style>
-    .main {
-        background-color: #f5f7f9;
-    }
-    .stButton>button {
-        width: 100%;
-        background-color: #ff4b4b;
-        color: white;
-        height: 3em;
-        font-weight: bold;
-    }
-    </style>
-    """, unsafe_allow_html=True)
+st.title("🗳️ Test Política Catalana PRO")
+st.write("80 preguntes — 4 eixos. Respon de 1 (molt en contra) a 5 (molt a favor).")
 
-st.title("🗳️ Test Política Catalana")
-st.write("Aquest test analitza la teva posició en 4 eixos i calcula l'afinitat amb corrents històrics i moderns. Fet per @patllaricamps a Twitter.")
-st.info("Respon amb sinceritat. L'escala va de 'Molt en contra' a 'Molt a favor'.")
-
-# --- BASE DE DADES DE PREGUNTES (75) ---
-# (Text, Eix, Directe, Pes)
+# ---------------------------
+# PREGUNTES (80)
+# ---------------------------
 preguntes = [
-    # ECONÒMIC
-    ("Cal abolir la propietat privada dels mitjans de producció.", 'Econ', False, 1.8),
-    ("L'Estat no ha de posar traves a la creació d'empreses.", 'Econ', True, 1.4),
-    ("Cal expropiar pisos de grans tenidors.", 'Econ', False, 1.7),
-    ("La lliure competència afavoreix el progrés.", 'Econ', True, 1.4),
-    ("Cal reduir impostos per atreure inversió.", 'Econ', True, 1.5),
-    ("El sistema de lliure mercat és injust.", 'Econ', False, 1.5),
-    ("Cal controlar els preus dels productes bàsics.", 'Econ', False, 1.4),
-    ("L'Estat ha de privatitzar empreses deficitàries.", 'Econ', True, 1.3),
-    ("Cal afavorir el producte local.", 'Econ', True, 1.3),
-    ("Cal un salari màxim per reduir desigualtats.", 'Econ', False, 1.5),
 
-    # NOVES (habitatge, turisme)
-    ("Cal limitar el preu del lloguer.", 'Econ', False, 1.8),
-    ("Els pisos turístics s'han de restringir fortament.", 'Econ', False, 1.7),
-    ("El turisme és essencial per a l'economia catalana.", 'Econ', True, 1.4),
+# ECONÒMIC
+("Cal limitar el preu del lloguer.", "Econ", False),
+("Cal reduir impostos a empreses.", "Econ", True),
+("El turisme és essencial per l’economia.", "Econ", True),
+("Els pisos turístics s’han de restringir.", "Econ", False),
+("El transport públic ha de ser gratuït.", "Econ", False),
+("Cal privatitzar empreses públiques.", "Econ", True),
+("Cal nacionalitzar sectors estratègics.", "Econ", False),
+("La competència de mercat és positiva.", "Econ", True),
+("Cal posar un salari màxim.", "Econ", False),
+("Cal protegir el comerç local.", "Econ", False),
+("Cal augmentar impostos als rics.", "Econ", False),
+("Cal reduir l’estat del benestar.", "Econ", True),
+("La sanitat ha de ser pública.", "Econ", False),
+("L’educació ha de ser privada.", "Econ", True),
+("Cal regular els preus dels aliments.", "Econ", False),
+("Les multinacionals aporten progrés.", "Econ", True),
+("Cal fomentar cooperatives.", "Econ", False),
+("El mercat laboral ha de ser flexible.", "Econ", True),
+("Cal garantir renda bàsica universal.", "Econ", False),
+("Cal limitar els beneficis empresarials.", "Econ", False),
 
-    # NACIONAL
-    ("Catalunya ha de ser independent.", 'Nac', False, 1.9),
-    ("Catalunya és part d'Espanya.", 'Nac', True, 1.9),
-    ("Cal control estricte de la immigració.", 'Nac', True, 1.7),
-    ("Els Països Catalans són una nació.", 'Nac', False, 1.6),
-    ("La sobirania resideix en el poble espanyol.", 'Nac', True, 1.8),
-    ("Cal més autogovern per Catalunya.", 'Nac', False, 1.6),
+# NACIONAL
+("Catalunya ha de ser independent.", "Nac", False),
+("Catalunya ha de seguir dins Espanya.", "Nac", True),
+("Cal més autonomia per Catalunya.", "Nac", False),
+("Els Països Catalans són una nació.", "Nac", False),
+("La sobirania és del poble espanyol.", "Nac", True),
+("Cal protegir la llengua catalana.", "Nac", False),
+("Cal un estat federal.", "Nac", False),
+("La immigració s’ha de limitar.", "Nac", True),
+("Europa ha de tenir més poder.", "Nac", True),
+("Cal tancar fronteres en crisis migratòries.", "Nac", True),
+("Catalunya ha de tenir exèrcit propi.", "Nac", False),
+("Cal eliminar les autonomies.", "Nac", True),
+("El català ha de ser obligatori.", "Nac", False),
+("La identitat espanyola és prioritària.", "Nac", True),
+("Cal cooperació amb Espanya.", "Nac", True),
+("La UE limita la sobirania catalana.", "Nac", False),
+("Cal acollir refugiats.", "Nac", False),
+("La immigració enriqueix la societat.", "Nac", False),
+("Cal prioritzar ciutadans locals.", "Nac", True),
+("Catalunya ha de liderar Europa.", "Nac", False),
 
-    # AUTORITAT
-    ("Cal més presència policial.", 'Auth', True, 1.7),
-    ("Les decisions s'han de prendre en assemblees.", 'Auth', False, 1.7),
-    ("L'ordre públic és prioritari.", 'Auth', True, 1.6),
-    ("La justícia ha de ser més dura.", 'Auth', True, 1.6),
-    ("L'Estat no hauria d'existir.", 'Auth', False, 1.8),
-    ("Cal limitar el dret a vaga.", 'Auth', True, 1.5),
-    ("Els okupes han de ser desallotjats ràpidament.", 'Auth', True, 1.7),
+# AUTORITAT
+("Cal més presència policial.", "Auth", True),
+("L’ordre públic és prioritari.", "Auth", True),
+("Cal limitar el dret a vaga.", "Auth", True),
+("Les decisions han de ser assembleàries.", "Auth", False),
+("Els okupes han de ser desallotjats ràpidament.", "Auth", True),
+("El govern ha de controlar internet.", "Auth", True),
+("Cal menys intervenció de l’Estat.", "Auth", False),
+("Les càmeres de vigilància són positives.", "Auth", True),
+("Cal una justícia més dura.", "Auth", True),
+("L’Estat no hauria d’existir.", "Auth", False),
+("Cal prohibir partits radicals.", "Auth", True),
+("La llibertat d’expressió ha de ser total.", "Auth", False),
+("Cal vigilància massiva per seguretat.", "Auth", True),
+("Els ciutadans han de poder portar armes.", "Auth", False),
+("Cal jerarquia forta a la societat.", "Auth", True),
+("El govern ha de regular mitjans.", "Auth", True),
+("Cal reduir el poder policial.", "Auth", False),
+("Les protestes han de ser limitades.", "Auth", True),
+("La desobediència civil és legítima.", "Auth", False),
+("Cal un líder fort.", "Auth", True),
 
-    # NOVES (seguretat / tecnologia)
-    ("El govern ha de poder controlar internet per seguretat.", 'Auth', True, 1.6),
-    ("Les càmeres de vigilància milloren la seguretat.", 'Auth', True, 1.5),
-
-    # CULTURAL
-    ("La tradició catalana és el pilar de la nació.", 'Cult', True, 1.8),
-    ("El cristianisme és el pilar de la nació.", 'Cult', True, 1.6),
-    ("El gènere és una elecció personal.", 'Cult', False, 1.8),
-    ("L'avortament és un dret.", 'Cult', False, 1.8),
-    ("La família tradicional és fonamental.", 'Cult', True, 1.7),
-    ("El multiculturalisme és positiu.", 'Cult', False, 1.6),
-    ("L'eutanàsia ha de ser legal.", 'Cult', False, 1.6),
-
-    # NOVES (actualitat social)
-    ("El transport públic ha de ser gratuït.", 'Econ', False, 1.6),
-    ("Cal limitar l'ús del cotxe a les ciutats.", 'Cult', False, 1.5),
-    ("Les energies renovables han de ser prioritàries.", 'Cult', False, 1.6),
+# CULTURAL
+("La tradició catalana és important.", "Cult", True),
+("El cristianisme és clau a la societat.", "Cult", True),
+("El gènere és una elecció personal.", "Cult", False),
+("L’avortament és un dret.", "Cult", False),
+("La família tradicional és essencial.", "Cult", True),
+("El multiculturalisme és positiu.", "Cult", False),
+("Cal limitar el cotxe a ciutat.", "Cult", False),
+("Les renovables han de ser prioritàries.", "Cult", False),
+("Cal defensar la identitat cultural.", "Cult", True),
+("Totes les cultures són iguals.", "Cult", False),
+("El feminisme és necessari.", "Cult", False),
+("La immigració amenaça la cultura.", "Cult", True),
+("Cal preservar festes tradicionals.", "Cult", True),
+("La religió ha de tenir pes públic.", "Cult", True),
+("La societat ha de ser laica.", "Cult", False),
+("Cal censurar contingut ofensiu.", "Cult", True),
+("La diversitat és un valor central.", "Cult", False),
+("Cal mantenir rols de gènere tradicionals.", "Cult", True),
+("La globalització cultural és positiva.", "Cult", False),
+("Cal protegir valors occidentals.", "Cult", True),
 ]
 
-# --- INTERFÍCIE DE PREGUNTES ---
+# ---------------------------
+# UI
+# ---------------------------
 respostes = {}
-for i, (text, eix, directe, pes) in enumerate(preguntes):
-    st.subheader(f"Pregunta {i+1}")
-    respostes[i] = st.select_slider(
-        text,
-        options=[1, 2, 3, 4, 5],
-        value=3,
-        format_func=lambda x: {1: "Molt en contra", 2: "En contra", 3: "Neutral", 4: "A favor", 5: "Molt a favor"}[x],
-        key=f"p_{i}"
-    )
-    st.divider()
+for i, (text, eix, directe) in enumerate(preguntes):
+    respostes[i] = st.slider(f"{i+1}. {text}", 1, 5, 3)
 
-# --- CÀLCUL I RESULTATS ---
-if st.button("VEURE EL MEU PERFIL POLÍTIC"):
-    puntuacions = {'Econ': 0, 'Nac': 0, 'Auth': 0, 'Cult': 0}
-    pesos = {'Econ': 0, 'Nac': 0, 'Auth': 0, 'Cult': 0}
+# ---------------------------
+# RESULTATS
+# ---------------------------
+if st.button("VEURE RESULTAT"):
 
-    for i, (text, eix, directe, pes) in enumerate(preguntes):
-        valor = respostes[i] if directe else (6 - respostes[i])
-        puntuacions[eix] += valor * pes
-        pesos[eix] += pes
+    puntuacions = {"Econ": 0, "Nac": 0, "Auth": 0, "Cult": 0}
+    comptador = {"Econ": 0, "Nac": 0, "Auth": 0, "Cult": 0}
 
-    # Normalització -10 a 10
-    r = {eix: ((puntuacions[eix] / pesos[eix]) - 3) * 5 for eix in puntuacions}
+    for i, (text, eix, directe) in enumerate(preguntes):
+        v = respostes[i]
+        if not directe:
+            v = 6 - v
+        puntuacions[eix] += v
+        comptador[eix] += 1
 
-    # Definició d'ideologies
+    # NORMALITZACIÓ CORRECTA (-10 a 10 REAL)
+    r = {}
+    for eix in puntuacions:
+        min_score = comptador[eix] * 1
+        max_score = comptador[eix] * 5
+        score = puntuacions[eix]
+
+        r[eix] = ((score - min_score) / (max_score - min_score)) * 20 - 10
+
+    st.header("📊 Resultat")
+    st.write(r)
+
+    # ---------------------------
+    # IDEOLOGIES
+    # ---------------------------
     ideologies = [
         ("Independentisme Identitari", 6, 7, -10, 9),
         ("Revolucionarisme", -10, 6, -8, -9),
@@ -121,56 +151,59 @@ if st.button("VEURE EL MEU PERFIL POLÍTIC"):
         ("Socialdemocràcia Constitucionalista", -4, 2, 6, -5),
         ("Liberalisme Radical (Anarcocapitalisme)", 10, -10, 0, -3),
         ("Carlisme Huguista", -6, -2, -9, 3),
+
+        ("Eco-socialisme", -8, -4, -3, -10),
+        ("Liberal-progressisme", 6, -3, 2, -6),
+        ("Conservadorisme moderat", 6, 5, 5, 7),
     ]
 
-    st.header("🔍 El teu perfil")
-    
-    col1, col2 = st.columns(2)
-    
-    # Taula d'afinitat
-    with col1:
-        st.subheader("Afinitat Ideològica")
-        afinitats = []
-        for nom, ie, ia, in_nac, ic in ideologies:
-            dist = np.sqrt((r['Econ']-ie)**2 + (r['Auth']-ia)**2 + (r['Nac']-in_nac)**2 + (r['Cult']-ic)**2)
-            p = max(0, 100 - (dist / 32 * 100))
-            afinitats.append((nom, p))
-        
-        afinitats.sort(key=lambda x: x[1], reverse=True)
-        for nom, p in afinitats:
-            st.write(f"**{nom}**: {round(p, 1)}%")
-            st.progress(p / 100)
+    st.subheader("Afinitat ideològica")
 
-    # Gràfics
-    with col2:
-        st.subheader("Mapa Polític")
-        fig, ax = plt.subplots(2, 1, figsize=(6, 10))
-        
-        # Gràfic 1: Econ/Auth
-        ax[0].set_xlim(-11, 11); ax[0].set_ylim(-11, 11)
-        ax[0].axhline(0, color='black', lw=1); ax[0].axvline(0, color='black', lw=1)
-        ax[0].add_patch(patches.Rectangle((-11, 0), 11, 11, color='blue', alpha=0.1))   # Esquerra-Llibertari
-        ax[0].add_patch(patches.Rectangle((0, 0), 11, 11, color='red', alpha=0.1))     # Dreta-Autoritari
-        ax[0].add_patch(patches.Rectangle((-11, -11), 11, 11, color='green', alpha=0.1)) # Esquerra-Autoritari
-        ax[0].add_patch(patches.Rectangle((0, -11), 11, 11, color='yellow', alpha=0.1)) # Dreta-Llibertari
-        ax[0].scatter(r['Econ'], r['Auth'], s=200, c='black', zorder=5)
-        ax[0].set_title("Econòmic / Autoritat")
-        ax[0].set_xlabel("← Esq | Dre →")
-        ax[0].set_ylabel("← Lib | Auth →")
+    for nom, e, a, n, c in ideologies:
+        dist = np.sqrt(
+            (r["Econ"] - e) ** 2 +
+            (r["Auth"] - a) ** 2 +
+            (r["Nac"] - n) ** 2 +
+            (r["Cult"] - c) ** 2
+        )
+        p = max(0, 100 - dist * 4)
+        st.write(f"{nom}: {round(p,1)}%")
+        st.progress(p/100)
 
-        # Gràfic 2: Nac/Cult
-        ax[1].set_xlim(-11, 11); ax[1].set_ylim(-11, 11)
-        ax[1].axhline(0, color='black', lw=1); ax[1].axvline(0, color='black', lw=1)
-        ax[1].add_patch(patches.Rectangle((-11, -11), 11, 11, color='gold', alpha=0.1)) # Català-progressista
-        ax[1].add_patch(patches.Rectangle((0, -11), 11, 11, color='pink', alpha=0.1))  # Espanyol-progressista
-        ax[1].add_patch(patches.Rectangle((-11, 0), 11, 11, color='purple', alpha=0.1))   # Català-conservador
-        ax[1].add_patch(patches.Rectangle((0, 0), 11, 11, color='orange', alpha=0.1))      # Espanyol-conservador
-        ax[1].scatter(r['Nac'], r['Cult'], s=200, c='black', zorder=5)
-        ax[1].set_title("Nacional / Cultural")
-        ax[1].set_xlabel("← Cat | Esp →")
-        ax[1].set_ylabel("← Prog | Cons →")
-        
-        plt.tight_layout()
-        st.pyplot(fig)
+    # ---------------------------
+    # GRÀFIQUES
+    # ---------------------------
+    fig, ax = plt.subplots(1, 2, figsize=(10,5))
 
-    st.success("Test completat! Pots compartir la teva URL de Streamlit amb altres persones.")
+    # Econ/Auth
+    ax[0].set_xlim(-11, 11); ax[0].set_ylim(-11, 11)
+    ax[0].axhline(0, color='black', lw=1)
+    ax[0].axvline(0, color='black', lw=1)
+
+    ax[0].add_patch(patches.Rectangle((-11, 0), 11, 11, color='blue', alpha=0.1))
+    ax[0].add_patch(patches.Rectangle((0, 0), 11, 11, color='red', alpha=0.1))
+    ax[0].add_patch(patches.Rectangle((-11, -11), 11, 11, color='green', alpha=0.1))
+    ax[0].add_patch(patches.Rectangle((0, -11), 11, 11, color='yellow', alpha=0.1))
+
+    ax[0].scatter(r['Econ'], r['Auth'], s=200, c='black', zorder=5)
+    ax[0].set_title("Econòmic / Autoritat")
+    ax[0].set_xlabel("← Esq | Dre →")
+    ax[0].set_ylabel("← Lib | Auth →")
+
+    # Nac/Cult
+    ax[1].set_xlim(-11, 11); ax[1].set_ylim(-11, 11)
+    ax[1].axhline(0, color='black', lw=1)
+    ax[1].axvline(0, color='black', lw=1)
+
+    ax[1].add_patch(patches.Rectangle((-11, -11), 11, 11, color='gold', alpha=0.1))
+    ax[1].add_patch(patches.Rectangle((0, -11), 11, 11, color='pink', alpha=0.1))
+    ax[1].add_patch(patches.Rectangle((-11, 0), 11, 11, color='purple', alpha=0.1))
+    ax[1].add_patch(patches.Rectangle((0, 0), 11, 11, color='orange', alpha=0.1))
+
+    ax[1].scatter(r['Nac'], r['Cult'], s=200, c='black', zorder=5)
+    ax[1].set_title("Nacional / Cultural")
+    ax[1].set_xlabel("← Cat | Esp →")
+    ax[1].set_ylabel("← Prog | Cons →")
+
+    plt.tight_layout()
+    st.pyplot(fig)
