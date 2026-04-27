@@ -144,17 +144,6 @@ preguntes = [
 ]
 
 # ---------------------------
-# UI (Sliders)
-# ---------------------------
-opcions = [1, 2, 3, 4, 5]
-labels = {1: "Molt en contra", 2: "En contra", 3: "Neutral", 4: "A favor", 5: "Molt a favor"}
-
-respostes = {}
-for i, item in enumerate(preguntes):
-    text = item[0]
-    respostes[i] = st.select_slider(f"{i+1}. {text}", options=opcions, value=3, format_func=lambda x: labels[x], key=f"p_{i}")
-
-# ---------------------------
 # LOGICA DE TEXTOS DE RESULTAT
 # ---------------------------
 def label_econ(v):
@@ -185,160 +174,181 @@ def label_cult(v):
     if v < 6:  return "Conservadorisme"
     return "Tradicionalisme / Reaccionarisme"
 
+
+# ---------------------------
+# UI (Sliders) - Ara dins d'un Form
+# ---------------------------
+opcions = [1, 2, 3, 4, 5]
+labels = {1: "Molt en contra", 2: "En contra", 3: "Neutral", 4: "A favor", 5: "Molt a favor"}
+
+with st.form(key="formulari_test"):
+    respostes = {}
+    for i, item in enumerate(preguntes):
+        text = item[0]
+        respostes[i] = st.select_slider(
+            f"{i+1}. {text}", 
+            options=opcions, 
+            value=3, 
+            format_func=lambda x: labels[x], 
+            key=f"p_{i}"
+        )
+    
+    submitted = st.form_submit_button("VEURE RESULTAT")
+
 # ---------------------------
 # PROCESSAMENT
 # ---------------------------
-if st.button("VEURE RESULTAT"):
-    puntuacions = {"Econ": 0, "Nac": 0, "Auth": 0, "Cult": 0}
-    comptador = {"Econ": 0, "Nac": 0, "Auth": 0, "Cult": 0}
+if submitted:
+    with st.spinner('Calculant els teus resultats... Fes scroll cap avall! 👇'):
+        puntuacions = {"Econ": 0, "Nac": 0, "Auth": 0, "Cult": 0}
+        comptador = {"Econ": 0, "Nac": 0, "Auth": 0, "Cult": 0}
 
-    for i, item in enumerate(preguntes):
-        v = respostes[i]
+        for i, item in enumerate(preguntes):
+            v = respostes[i]
+            
+            # Detectar si és format antic (str) o nou (list)
+            if isinstance(item[1], str):
+                eixos_afectats = [(item[1], item[2])]
+            else:
+                eixos_afectats = item[1]
+
+            for eix, directe in eixos_afectats:
+                valor_final = v if directe else (6 - v)
+                puntuacions[eix] += valor_final
+                comptador[eix] += 1
+
+        r = {}
+        for eix in puntuacions:
+            if comptador[eix] == 0:
+                r[eix] = 0
+                continue
+            min_score = comptador[eix] * 1
+            max_score = comptador[eix] * 5
+            r[eix] = ((puntuacions[eix] - min_score) / (max_score - min_score)) * 20 - 10
+
+        st.header("📊 Resultat")
         
-        # Detectar si és format antic (str) o nou (list)
-        if isinstance(item[1], str):
-            eixos_afectats = [(item[1], item[2])]
-        else:
-            eixos_afectats = item[1]
+        col1, col2, col3, col4 = st.columns(4)
+        with col1:
+            st.metric("Econòmic", round(r["Econ"], 1))
+            st.info(f"**{label_econ(r['Econ'])}**")
+        with col2:
+            st.metric("Nacional", round(r["Nac"], 1))
+            st.info(f"**{label_nac(r['Nac'])}**")
+        with col3:
+            st.metric("Autoritat", round(r["Auth"], 1))
+            st.info(f"**{label_auth(r['Auth'])}**")
+        with col4:
+            st.metric("Cultural", round(r["Cult"], 1))
+            st.info(f"**{label_cult(r['Cult'])}**")
 
-        for eix, directe in eixos_afectats:
-            valor_final = v if directe else (6 - v)
-            puntuacions[eix] += valor_final
-            comptador[eix] += 1
+        # ---------------------------
+        # IDEOLOGIES (40)
+        # ---------------------------
+        ideologies = [
+            # --- BLOC CATALÀ ---
+            ("Independentisme Identitari", 6, 7, -10, 9),
+            ("Independentisme d'Esquerres", -8, -5, -10, -9),
+            ("Socialdemocràcia Sobiranista", -5, -2, -5, -3), 
+            ("Noucentisme / Post-Convergència", 4, 3, -9, 4),
+            ("Estat Català / Dencasisme", -6, 9, -10, 7), 
+            ("Carlisme Huguista (Socialisme Autogestionari)", -6, -2, -9, 3),
+            ("Nacionalisme de Centre-Dreta", 5, 2, -6, 5),
 
-    r = {}
-    for eix in puntuacions:
-        if comptador[eix] == 0:
-            r[eix] = 0
-            continue
-        min_score = comptador[eix] * 1
-        max_score = comptador[eix] * 5
-        r[eix] = ((puntuacions[eix] - min_score) / (max_score - min_score)) * 20 - 10
+            # --- BLOC ESPANYOL ---
+            ("Nacionalisme Espanyol Radical", 8, 9, 10, 10),
+            ("Federalisme d'Esquerres", -7, -3, 3, -9),
+            ("Socialdemocràcia Constitucionalista", -4, 2, 6, -5),
+            ("Aznarisme / Dreta Unificada", 7, 6, 8, 8),
+            ("Falangisme (Nacional-Sindicalisme)", -5, 10, 10, 9),
+            ("Nacional-Sindicalisme (Ledesma Ramos)", -8, 10, 10, 8), 
+            ("Lerrouxisme", -3, 4, 9, -8),
+            ("Regionalisme No-Nacionalista", 2, 2, 4, 3),
 
-    st.header("📊 Resultat")
-    
-    col1, col2, col3, col4 = st.columns(4)
-    with col1:
-        st.metric("Econòmic", round(r["Econ"], 1))
-        st.info(f"**{label_econ(r['Econ'])}**")
-    with col2:
-        st.metric("Nacional", round(r["Nac"], 1))
-        st.info(f"**{label_nac(r['Nac'])}**")
-    with col3:
-        st.metric("Autoritat", round(r["Auth"], 1))
-        st.info(f"**{label_auth(r['Auth'])}**")
-    with col4:
-        st.metric("Cultural", round(r["Cult"], 1))
-        st.info(f"**{label_cult(r['Cult'])}**")
+            # --- ESQUERRA RADICAL I FILOSÒFIQUES ---
+            ("Revolucionarisme", -10, 6, -2, -9),
+            ("Anarcosindicalisme", -10, -10, -3, -9),
+            ("Comunisme Marxista-Leninista", -10, 9, -5, -6),
+            ("Estalinisme", -10, 10, 0, 2),
+            ("Trotskisme", -10, 4, 0, -10),
+            ("Maoisme", -9, 9, 0, -5),
+            ("Eco-socialisme", -8, -4, -3, -10),
+            ("Mutualisme", -7, -8, 0, -7),
+            ("Anarquisme Individualista", 0, -10, 0, -8),
+            ("Socialisme de Caviar (Gauche Divine)", -4, -4, 0, -8),
 
-    # ---------------------------
-    # IDEOLOGIES (40)
-    # ---------------------------
-    ideologies = [
-        # --- BLOC CATALÀ ---
-        ("Independentisme Identitari", 6, 7, -10, 9),
-        ("Independentisme d'Esquerres", -8, -5, -10, -9),
-        ("Socialdemocràcia Sobiranista", -5, -2, -5, -3), # Ajustada per ser més "real"
-        ("Noucentisme / Post-Convergència", 4, 3, -9, 4),
-        ("Estat Català / Dencasisme", -6, 9, -10, 7), # Nova: Nacionalisme radical, ordre i base obrera
-        ("Carlisme Huguista (Socialisme Autogestionari)", -6, -2, -9, 3),
-        ("Nacionalisme de Centre-Dreta", 5, 2, -6, 5),
+            # --- DRETA I LIBERALISME ---
+            ("Liberalisme Radical (Anarcocapitalisme)", 10, -10, 0, -3),
+            ("Minarquisme", 9, -8, 0, -2),
+            ("Liberal-progressisme", 6, -3, 2, -6),
+            ("Socioliberalisme", 2, -4, 0, -5),
+            ("Conservadorisme moderat", 6, 5, 5, 7),
+            ("Democràcia Cristiana", 3, 4, -4, 7),
+            ("Neoconservadorisme (Bush)", 7, 7, 0, 8),
+            ("Tecnocràcia", 2, 6, 0, -4),
 
-        # --- BLOC ESPANYOL ---
-        ("Nacionalisme Espanyol Radical", 8, 9, 10, 10),
-        ("Federalisme d'Esquerres", -7, -3, 3, -9),
-        ("Socialdemocràcia Constitucionalista", -4, 2, 6, -5),
-        ("Aznarisme / Dreta Unificada", 7, 6, 8, 8),
-        ("Falangisme (Nacional-Sindicalisme)", -5, 10, 10, 9),
-        ("Nacional-Sindicalisme (Ledesma Ramos)", -8, 10, 10, 8), # Nova: Més radical econòmicament que Primo de Rivera
-        ("Lerrouxisme", -3, 4, 9, -8),
-        ("Regionalisme No-Nacionalista", 2, 2, 4, 3),
-
-        # --- ESQUERRA RADICAL I FILOSÒFIQUES ---
-        ("Revolucionarisme", -10, 6, -2, -9),
-        ("Anarcosindicalisme", -10, -10, -3, -9),
-        ("Comunisme Marxista-Leninista", -10, 9, -5, -6),
-        ("Estalinisme", -10, 10, 0, 2),
-        ("Trotskisme", -10, 4, 0, -10),
-        ("Maoisme", -9, 9, 0, -5),
-        ("Eco-socialisme", -8, -4, -3, -10),
-        ("Mutualisme", -7, -8, 0, -7),
-        ("Anarquisme Individualista", 0, -10, 0, -8),
-        ("Socialisme de Caviar (Gauche Divine)", -4, -4, 0, -8),
-
-        # --- DRETA I LIBERALISME ---
-        ("Liberalisme Radical (Anarcocapitalisme)", 10, -10, 0, -3),
-        ("Minarquisme", 9, -8, 0, -2),
-        ("Liberal-progressisme", 6, -3, 2, -6),
-        ("Socioliberalisme", 2, -4, 0, -5),
-        ("Conservadorisme moderat", 6, 5, 5, 7),
-        ("Democràcia Cristiana", 3, 4, -4, 7),
-        ("Neoconservadorisme (Bush)", 7, 7, 0, 8),
-        ("Tecnocràcia", 2, 6, 0, -4),
-
-        # --- REACCIONARISME I TERCERA VIA ---
-        ("Carlisme Tradicionalista", -2, 8, -3, 10),
-        ("Nacional-Bolxevisme (Nazbol)", -9, 10, 0, 10),
-        ("Extrema Dreta Alternativa (Alt-Right)", 8, 8, 8, 10),
-        ("Feixisme Clàssic (Mussolini)", -2, 10, 5, 9),
-        ("Nacionalsocialisme (Nazi)", 2, 10, 10, 10),
-        ("Ecofeixisme", -2, 9, 0, 8),
-        ("Distributisme", -3, 3, 0, 8),
-        ("Populisme de Dretes", 4, 7, 6, 9),
-        ("Progressisme Woke", -6, 2, 0, -10),
-    
-    # --- EL QUE ET FALTA PER COMPLETAR EL MAPA ---
-        ("Centrisme Liberal / Moderat", 2, -2, 0, 0),
-       # ("Neoprocessisme Gestor", 0, 2, -7, -2),
-        ("Anarcoprimitivisme", -10, -10, 0, -5),
-        ("Dreta Il·liberal Identitària", 4, 8, -10, 10),
-        #("Populisme Unionista de Barris", -2, 6, 9, 4),
-    ]
-    st.subheader("Afinitat ideològica")
-    resultats_afinitat = []
-    for nom, e, a, n, c in ideologies:
-        dist = np.sqrt((r["Econ"] - e)**2 + (r["Auth"] - a)**2 + (r["Nac"] - n)**2 + (r["Cult"] - c)**2)
-        max_dist = np.sqrt((20)**2 * 4)
-        p = max(0, 100 * (1 - dist / max_dist))
-        resultats_afinitat.append((nom, p))  # <-- AQUESTA ÉS LA LINIA QUE FALTAVA
-
-    resultats_afinitat.sort(key=lambda x: x[1], reverse=True)
-    for nom, p in resultats_afinitat[:10]:
-        st.write(f"**{nom}**: {round(p,1)}%")
-        st.progress(p/100)
+            # --- REACCIONARISME I TERCERA VIA ---
+            ("Carlisme Tradicionalista", -2, 8, -3, 10),
+            ("Nacional-Bolxevisme (Nazbol)", -9, 10, 0, 10),
+            ("Extrema Dreta Alternativa (Alt-Right)", 8, 8, 8, 10),
+            ("Feixisme Clàssic (Mussolini)", -2, 10, 5, 9),
+            ("Nacionalsocialisme (Nazi)", 2, 10, 10, 10),
+            ("Ecofeixisme", -2, 9, 0, 8),
+            ("Distributisme", -3, 3, 0, 8),
+            ("Populisme de Dretes", 4, 7, 6, 9),
+            ("Progressisme Woke", -6, 2, 0, -10),
         
-    # ---------------------------
-    # GRÀFIQUES
-    # ---------------------------
-    fig, ax = plt.subplots(1, 2, figsize=(10,5))
+            # --- EL QUE ET FALTA PER COMPLETAR EL MAPA ---
+            ("Centrisme Liberal / Moderat", 2, -2, 0, 0),
+            ("Anarcoprimitivisme", -10, -10, 0, -5),
+            ("Dreta Il·liberal Identitària", 4, 8, -10, 10),
+        ]
+        
+        st.subheader("Afinitat ideològica")
+        resultats_afinitat = []
+        for nom, e, a, n, c in ideologies:
+            dist = np.sqrt((r["Econ"] - e)**2 + (r["Auth"] - a)**2 + (r["Nac"] - n)**2 + (r["Cult"] - c)**2)
+            max_dist = np.sqrt((20)**2 * 4)
+            p = max(0, 100 * (1 - dist / max_dist))
+            resultats_afinitat.append((nom, p))
 
-    # Econ/Auth
-    ax[0].set_xlim(-11, 11)
-    ax[0].set_ylim(-11, 11)
-    ax[0].axhline(0, color='black')
-    ax[0].axvline(0, color='black')
-    ax[0].add_patch(patches.Rectangle((-11, 0), 11, 11, color='red', alpha=0.1))
-    ax[0].add_patch(patches.Rectangle((0, 0), 11, 11, color='blue', alpha=0.1))
-    ax[0].add_patch(patches.Rectangle((-11, -11), 11, 11, color='green', alpha=0.1))
-    ax[0].add_patch(patches.Rectangle((0, -11), 11, 11, color='yellow', alpha=0.1))
-    ax[0].scatter(r['Econ'], r['Auth'], s=200, c='black')
-    ax[0].set_title("Econòmic / Autoritat")
-    ax[0].set_xlabel("← Esq | Dre →")
-    ax[0].set_ylabel("← Lib | Auth →")
+        resultats_afinitat.sort(key=lambda x: x[1], reverse=True)
+        for nom, p in resultats_afinitat[:10]:
+            st.write(f"**{nom}**: {round(p,1)}%")
+            st.progress(p/100)
+            
+        # ---------------------------
+        # GRÀFIQUES
+        # ---------------------------
+        fig, ax = plt.subplots(1, 2, figsize=(10,5))
 
-    # Nac/Cult
-    ax[1].set_xlim(-11, 11)
-    ax[1].set_ylim(-11, 11)
-    ax[1].axhline(0, color='black')
-    ax[1].axvline(0, color='black')
-    ax[1].add_patch(patches.Rectangle((-11, -11), 11, 11, color='gold', alpha=0.1))
-    ax[1].add_patch(patches.Rectangle((0, -11), 11, 11, color='pink', alpha=0.1))
-    ax[1].add_patch(patches.Rectangle((-11, 0), 11, 11, color='purple', alpha=0.1))
-    ax[1].add_patch(patches.Rectangle((0, 0), 11, 11, color='orange', alpha=0.1))
-    ax[1].scatter(r['Nac'], r['Cult'], s=200, c='black')
-    ax[1].set_title("Nacional / Cultural")
-    ax[1].set_xlabel("← Cat | Esp →")
-    ax[1].set_ylabel("← Prog | Cons →")
+        # Econ/Auth
+        ax[0].set_xlim(-11, 11)
+        ax[0].set_ylim(-11, 11)
+        ax[0].axhline(0, color='black')
+        ax[0].axvline(0, color='black')
+        ax[0].add_patch(patches.Rectangle((-11, 0), 11, 11, color='red', alpha=0.1))
+        ax[0].add_patch(patches.Rectangle((0, 0), 11, 11, color='blue', alpha=0.1))
+        ax[0].add_patch(patches.Rectangle((-11, -11), 11, 11, color='green', alpha=0.1))
+        ax[0].add_patch(patches.Rectangle((0, -11), 11, 11, color='yellow', alpha=0.1))
+        ax[0].scatter(r['Econ'], r['Auth'], s=200, c='black')
+        ax[0].set_title("Econòmic / Autoritat")
+        ax[0].set_xlabel("← Esq | Dre →")
+        ax[0].set_ylabel("← Lib | Auth →")
 
-    plt.tight_layout()
-    st.pyplot(fig)
+        # Nac/Cult
+        ax[1].set_xlim(-11, 11)
+        ax[1].set_ylim(-11, 11)
+        ax[1].axhline(0, color='black')
+        ax[1].axvline(0, color='black')
+        ax[1].add_patch(patches.Rectangle((-11, -11), 11, 11, color='gold', alpha=0.1))
+        ax[1].add_patch(patches.Rectangle((0, -11), 11, 11, color='pink', alpha=0.1))
+        ax[1].add_patch(patches.Rectangle((-11, 0), 11, 11, color='purple', alpha=0.1))
+        ax[1].add_patch(patches.Rectangle((0, 0), 11, 11, color='orange', alpha=0.1))
+        ax[1].scatter(r['Nac'], r['Cult'], s=200, c='black')
+        ax[1].set_title("Nacional / Cultural")
+        ax[1].set_xlabel("← Cat | Esp →")
+        ax[1].set_ylabel("← Prog | Cons →")
+
+        plt.tight_layout()
+        st.pyplot(fig)
