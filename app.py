@@ -195,12 +195,13 @@ if st.button("VEURE RESULTAT"):
     col3.metric("Autoritat", round(r["Auth"], 1))
     col4.metric("Cultural", round(r["Cult"], 1))
 
-    # ---------------------------
+# ---------------------------
     # IDEOLOGIES
     # ---------------------------
     ideologies = [
+        # --- Les teves originals ---
         ("Independentisme Identitari", 6, 7, -10, 9),
-        ("Revolucionarisme / Comunisme Cat", -10, 6, -8, -9),
+        ("Revolucionarisme", -10, 6, -8, -9),
         ("Independentisme d'Esquerres", -8, -5, -10, -9),
         ("Socialdemocràcia Sobiranista", -5, -2, -9, -7),
         ("Noucentisme / Post-Convergència", 4, 3, -9, 4),
@@ -218,6 +219,20 @@ if st.button("VEURE RESULTAT"):
         ("Extrema Dreta Alternativa (Alt-Right)", 8, 8, 8, 10),
         ("Socioliberalisme", 2, -4, 0, -5),
         ("Nacionalisme de Centre-Dreta", 5, 2, -6, 5),
+
+        # --- Les noves que m'has demanat ---
+        ("Carlisme Tradicionalista", -2, 8, -4, 10),
+        ("Falangisme", -5, 10, 10, 9),
+        ("Lerrouxisme", -4, 4, 9, -8),
+        
+        # --- Internacionals i extres ---
+        ("Maoisme", -9, 9, 0, -5),
+        ("Estalinisme", -10, 10, 0, 2),
+        ("Neoconservadorisme", 7, 7, 0, 8),
+        ("Minarquisme", 9, -8, 0, -2),
+        ("Feixisme Clàssic", -2, 10, 5, 9),
+        ("Populisme de Dretes", 4, 7, 6, 9),
+        ("Progressisme Woke", -6, 2, 0, -10)
     ]
 
     st.subheader("Afinitat ideològica")
