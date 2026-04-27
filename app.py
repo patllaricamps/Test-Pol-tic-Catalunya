@@ -20,7 +20,7 @@ st.markdown("""
         font-weight: bold;
     }
     </style>
-    """, unsafe_allow_name=True)
+    """, unsafe_allow_html=True)
 
 st.title("🗳️ Test Polític Català v6.0")
 st.write("Aquest test analitza la teva posició en 4 eixos i calcula l'afinitat amb corrents històrics i moderns.")
