@@ -73,7 +73,7 @@ preguntes = [
     ("Els indults i l'amnistia van ser un error històric.", "Nac", True),
     ("El català hauria de ser l'única llengua oficial i vehicular.", "Nac", False),
 
-    # AUTORITAT (30)
+    # AUTORITAT (29)
     ("La policia hauria de tenir més autoritat i menys controls.", "Auth", True),
     ("Mantenir l'ordre públic és més important que certes protestes.", "Auth", True),
     ("El dret a vaga en serveis essencials hauria d'estar prohibit.", "Auth", True),
@@ -87,7 +87,6 @@ preguntes = [
     ("S'han d'il·legalitzar partits que vulguin subvertir la Constitució.", "Auth", True),
     ("La llibertat d'expressió ha de ser absoluta.", "Auth", False),
     ("El rastreig de comunicacions és justificable per prevenir atemptats.", "Auth", True),
-    ("Els ciutadans haurien de poder posseir armes per defensar-se.", "Auth", False),
     ("L'obediència i el respecte a la jerarquia són fonamentals.", "Auth", True),
     ("Els mitjans privats haurien d'estar intervinguts per l'Estat.", "Auth", True),
     ("Els cossos d'antiavalots haurien de ser dissolts.", "Auth", False),
@@ -105,7 +104,8 @@ preguntes = [
     ("Cremar banderes hauria de considerar-se delicte de presó.", "Auth", True),
     ("Cal aplicar lleis antiterroristes a activistes radicals encara que no usin armes.", "Auth", True),
 
-    # CULTURAL (35)
+    # CULTURAL (36)
+    ("Els ciutadans haurien de poder posseir armes per defensar-se.", "Cult", False),
     ("Les tradicions històriques s'han de preservar per sobre de tot.", "Cult", True),
     ("Els valors cristians són el pilar de la nostra societat.", "Cult", True),
     ("El gènere és un constructe social i l'elecció ha de ser lliure.", "Cult", False),
