@@ -109,7 +109,22 @@ preguntes = [
 # ---------------------------
 respostes = {}
 for i, (text, eix, directe) in enumerate(preguntes):
-    respostes[i] = st.slider(f"{i+1}. {text}", 1, 5, 3)
+    opcions = [1, 2, 3, 4, 5]
+labels = {
+    1: "Molt en contra",
+    2: "En contra",
+    3: "Neutral",
+    4: "A favor",
+    5: "Molt a favor"
+}
+
+respostes[i] = st.select_slider(
+    f"{i+1}. {text}",
+    options=opcions,
+    value=3,
+    format_func=lambda x: labels[x],
+    key=f"p_{i}"
+)
 
 # ---------------------------
 # RESULTATS
