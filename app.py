@@ -255,7 +255,7 @@ if st.button("VEURE RESULTAT"):
         ("Regionalisme No-Nacionalista", 2, 2, 4, 3),
 
         # --- ESQUERRA RADICAL I FILOSÒFIQUES ---
-        ("Revolucionarisme", -10, 6, -8, -9),
+        ("Revolucionarisme", -10, 6, -2, -9),
         ("Anarcosindicalisme", -10, -10, -3, -9),
         ("Comunisme Marxista-Leninista", -10, 9, -5, -6),
         ("Estalinisme", -10, 10, 0, 2),
@@ -273,7 +273,7 @@ if st.button("VEURE RESULTAT"):
         ("Socioliberalisme", 2, -4, 0, -5),
         ("Conservadorisme moderat", 6, 5, 5, 7),
         ("Democràcia Cristiana", 3, 4, -4, 7),
-        ("Neoconservadorisme (Bush style)", 7, 7, 0, 8),
+        ("Neoconservadorisme (Bush)", 7, 7, 0, 8),
         ("Tecnocràcia", 2, 6, 0, -4),
 
         # --- REACCIONARISME I TERCERA VIA ---
@@ -289,10 +289,10 @@ if st.button("VEURE RESULTAT"):
     
     # --- EL QUE ET FALTA PER COMPLETAR EL MAPA ---
         ("Centrisme Liberal / Moderat", 2, -2, 0, 0),
-        ("Neoprocessisme Gestor", 0, 2, -7, -2),
+       # ("Neoprocessisme Gestor", 0, 2, -7, -2),
         ("Anarcoprimitivisme", -10, -10, 0, -5),
         ("Dreta Il·liberal Identitària", 4, 8, -10, 10),
-        ("Populisme Unionista de Barris", -2, 6, 9, 4),
+        #("Populisme Unionista de Barris", -2, 6, 9, 4),
     ]
     st.subheader("Afinitat ideològica")
     resultats_afinitat = []
