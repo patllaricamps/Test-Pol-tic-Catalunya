@@ -3,10 +3,11 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import numpy as np
 
-st.set_page_config(page_title="POLITIC-CAT PRO", layout="centered")
+st.set_page_config(page_title="TEST POLITIC-CAT ", layout="centered")
 
-st.title("🗳️ Test Política Catalana PRO")
-st.write("80 preguntes — 4 eixos. Respon amb sinceritat.")
+st.title("🗳️ Test Política Catalana")
+st.write("80 preguntes — 4 eixos: Econòmic, Autoritari, Nacional i Cultural. Respon amb sinceritat.")
+st.write("Fet per: @patllaricamps a Twitter (X).")
 
 # ---------------------------
 # PREGUNTES (80)
