@@ -29,7 +29,6 @@ st.info("Respon amb sinceritat. L'escala va de 'Molt en contra' a 'Molt a favor'
 # --- BASE DE DADES DE PREGUNTES (75) ---
 # (Text, Eix, Directe, Pes)
 preguntes = [
-    preguntes = [
     # ECONÒMIC
     ("Cal abolir la propietat privada dels mitjans de producció.", 'Econ', False, 1.8),
     ("L'Estat no ha de posar traves a la creació d'empreses.", 'Econ', True, 1.4),
