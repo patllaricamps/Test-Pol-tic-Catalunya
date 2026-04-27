@@ -232,7 +232,7 @@ if st.button("VEURE RESULTAT"):
         ("Federalisme d'Esquerres", -7, -3, 3, -9),
         ("Socialdemocràcia Constitucionalista", -4, 2, 6, -5),
         ("Liberalisme Radical (Anarcocapitalisme)", 10, -10, 0, -3),
-        ("Carlisme Huguista", -6, -2, -9, 3),
+        ("Carlisme Huguista (Socialisme Autogestionari)", -6, -2, -9, 3),
         ("Eco-socialisme", -8, -4, -3, -10),
         ("Liberal-progressisme", 6, -3, 2, -6),
         ("Conservadorisme moderat", 6, 5, 5, 7),
@@ -264,27 +264,35 @@ if st.button("VEURE RESULTAT"):
     for nom, p in resultats_afinitat[:10]: # Mostrem les 10 primeres
         st.write(f"**{nom}**: {round(p,1)}%")
         st.progress(p/100)
-
+        
     # ---------------------------
     # GRÀFIQUES
     # ---------------------------
     fig, ax = plt.subplots(1, 2, figsize=(10,5))
+
+    # Econ/Auth
     ax[0].set_xlim(-11, 11); ax[0].set_ylim(-11, 11)
     ax[0].axhline(0, color='black'); ax[0].axvline(0, color='black')
     ax[0].add_patch(patches.Rectangle((-11, 0), 11, 11, color='blue', alpha=0.1))
     ax[0].add_patch(patches.Rectangle((0, 0), 11, 11, color='red', alpha=0.1))
     ax[0].add_patch(patches.Rectangle((-11, -11), 11, 11, color='green', alpha=0.1))
     ax[0].add_patch(patches.Rectangle((0, -11), 11, 11, color='yellow', alpha=0.1))
-    ax[0].scatter(r['Econ'], r['Auth'], s=200, c='black', edgecolors='white')
+    ax[0].scatter(r['Econ'], r['Auth'], s=200, c='black')
     ax[0].set_title("Econòmic / Autoritat")
-    
+    ax[0].set_xlabel("← Esq | Dre →")
+    ax[0].set_ylabel("← Lib | Auth →")
+
+    # Nac/Cult
     ax[1].set_xlim(-11, 11); ax[1].set_ylim(-11, 11)
     ax[1].axhline(0, color='black'); ax[1].axvline(0, color='black')
     ax[1].add_patch(patches.Rectangle((-11, -11), 11, 11, color='gold', alpha=0.1))
     ax[1].add_patch(patches.Rectangle((0, -11), 11, 11, color='pink', alpha=0.1))
     ax[1].add_patch(patches.Rectangle((-11, 0), 11, 11, color='purple', alpha=0.1))
     ax[1].add_patch(patches.Rectangle((0, 0), 11, 11, color='orange', alpha=0.1))
-    ax[1].scatter(r['Nac'], r['Cult'], s=200, c='black', edgecolors='white')
+    ax[1].scatter(r['Nac'], r['Cult'], s=200, c='black')
     ax[1].set_title("Nacional / Cultural")
+    ax[1].set_xlabel("← Cat | Esp →")
+    ax[1].set_ylabel("← Prog | Cons →")
 
+    plt.tight_layout()
     st.pyplot(fig)
