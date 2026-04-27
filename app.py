@@ -231,7 +231,7 @@ if st.button("VEURE RESULTAT"):
         st.metric("Cultural", round(r["Cult"], 1))
         st.info(f"**{label_cult(r['Cult'])}**")
 
-   # ---------------------------
+    # ---------------------------
     # IDEOLOGIES (40)
     # ---------------------------
     ideologies = [
@@ -257,29 +257,29 @@ if st.button("VEURE RESULTAT"):
         ("Nacionalisme de Centre-Dreta", 5, 2, -6, 5),
 
         # --- NOVES INCORPORACIONS LOCALS ---
-        ("Carlisme Tradicionalista", -2, 8, -3, 10), # Déu, Pàtria, Rei (Furs)
-        ("Falangisme (Nacional-Sindicalisme)", -5, 10, 10, 9), # Anti-capitalista però feixista
-        ("Lerrouxisme", -3, 4, 9, -8), # Republicà, populist i espanyolista radical
-        ("Nacional-Bolxevisme (Nazbol)", -9, 10, 0, 10), # Economia d'esquerra, autoritat i cultura de dreta
-        ("Aznarisme / Dreta Unificada", 7, 6, 9, 8), # Neoliberalisme i centralisme fort
-        ("Socialisme de Caviar (Gauche Divine)", -4, -4, 0, -8), # Estètica d'esquerra, vida acomodada
-        ("Regionalisme No-Nacionalista", 2, 2, 4, 3), # Autonomisme clàssic sense trencar res
+        ("Carlisme Tradicionalista", -2, 8, -3, 10),
+        ("Falangisme (Nacional-Sindicalisme)", -5, 10, 10, 9),
+        ("Lerrouxisme", -3, 4, 9, -8),
+        ("Nacional-Bolxevisme (Nazbol)", -9, 10, 0, 10),
+        ("Aznarisme / Dreta Unificada", 7, 6, 8, 8),
+        ("Socialisme de Caviar (Gauche Divine)", -4, -4, 0, -8),
+        ("Regionalisme No-Nacionalista", 2, 2, 4, 3),
 
         # --- INTERNACIONALS I FILOSÒFIQUES ---
-        ("Estalinisme", -10, 10, 0, 2), # Estat totalitari i economia planificada
-        ("Trotskisme", -10, 4, 0, -10), # Revolució permanent i internacionalisme
-        ("Maoisme", -9, 9, 0, -5), # Camperolisme i revolució cultural
-        ("Feixisme Clàssic (Mussolini)", -2, 10, 5, 9), # Tot dins l'Estat
-        ("Nacionalsocialisme (Nazi)", 2, 10, 10, 10), # Racisme biològic i estat total
-        ("Minarquisme", 9, -8, 0, -2), # L'Estat només per a policia i jutges
-        ("Ecofeixisme", -2, 9, 0, 8), # Autoritarisme extrem per salvar el planeta
-        ("Neoconservadorisme (Bush style)", 7, 7, 0, 8), # Intervencionisme militar i lliure mercat
-        ("Distributisme", -3, 3, 0, 8), # Propietat petita i valors cristians (Chesterton)
-        ("Anarquisme Individualista", 0, -10, 0, -8), # Max Stirner, l'Ego
-        ("Tecnocràcia", 2, 6, 0, -4), # Govern dels experts, no dels polítics
-        ("Mutualisme", -7, -8, 0, -7), # Proudhon, mercat sense capitalisme
-        ("Populisme de Dretes", 4, 7, 6, 9), # Estil Trump o Orban
-        ("Progressisme Woke", -6, 2, 0, -10), # Focus total en identitats i justícia social
+        ("Estalinisme", -10, 10, 0, 2),
+        ("Trotskisme", -10, 4, 0, -10),
+        ("Maoisme", -9, 9, 0, -5),
+        ("Feixisme Clàssic (Mussolini)", -2, 10, 5, 9),
+        ("Nacionalsocialisme (Nazi)", 2, 10, 10, 10),
+        ("Minarquisme", 9, -8, 0, -2),
+        ("Ecofeixisme", -2, 9, 0, 8),
+        ("Neoconservadorisme (Bush style)", 7, 7, 0, 8),
+        ("Distributisme", -3, 3, 0, 8),
+        ("Anarquisme Individualista", 0, -10, 0, -8),
+        ("Tecnocràcia", 2, 6, 0, -4),
+        ("Mutualisme", -7, -8, 0, -7),
+        ("Populisme de Dretes", 4, 7, 6, 9),
+        ("Progressisme Woke", -6, 2, 0, -10),
     ]
 
     st.subheader("Afinitat ideològica")
@@ -288,7 +288,8 @@ if st.button("VEURE RESULTAT"):
         dist = np.sqrt((r["Econ"] - e)**2 + (r["Auth"] - a)**2 + (r["Nac"] - n)**2 + (r["Cult"] - c)**2)
         max_dist = np.sqrt((20)**2 * 4)
         p = max(0, 100 * (1 - dist / max_dist))
-    
+        resultats_afinitat.append((nom, p))  # <-- AQUESTA ÉS LA LINIA QUE FALTAVA
+
     resultats_afinitat.sort(key=lambda x: x[1], reverse=True)
     for nom, p in resultats_afinitat[:10]:
         st.write(f"**{nom}**: {round(p,1)}%")
@@ -300,8 +301,10 @@ if st.button("VEURE RESULTAT"):
     fig, ax = plt.subplots(1, 2, figsize=(10,5))
 
     # Econ/Auth
-    ax[0].set_xlim(-11, 11); ax[0].set_ylim(-11, 11)
-    ax[0].axhline(0, color='black'); ax[0].axvline(0, color='black')
+    ax[0].set_xlim(-11, 11)
+    ax[0].set_ylim(-11, 11)
+    ax[0].axhline(0, color='black')
+    ax[0].axvline(0, color='black')
     ax[0].add_patch(patches.Rectangle((-11, 0), 11, 11, color='blue', alpha=0.1))
     ax[0].add_patch(patches.Rectangle((0, 0), 11, 11, color='red', alpha=0.1))
     ax[0].add_patch(patches.Rectangle((-11, -11), 11, 11, color='green', alpha=0.1))
@@ -312,8 +315,10 @@ if st.button("VEURE RESULTAT"):
     ax[0].set_ylabel("← Lib | Auth →")
 
     # Nac/Cult
-    ax[1].set_xlim(-11, 11); ax[1].set_ylim(-11, 11)
-    ax[1].axhline(0, color='black'); ax[1].axvline(0, color='black')
+    ax[1].set_xlim(-11, 11)
+    ax[1].set_ylim(-11, 11)
+    ax[1].axhline(0, color='black')
+    ax[1].axvline(0, color='black')
     ax[1].add_patch(patches.Rectangle((-11, -11), 11, 11, color='gold', alpha=0.1))
     ax[1].add_patch(patches.Rectangle((0, -11), 11, 11, color='pink', alpha=0.1))
     ax[1].add_patch(patches.Rectangle((-11, 0), 11, 11, color='purple', alpha=0.1))
