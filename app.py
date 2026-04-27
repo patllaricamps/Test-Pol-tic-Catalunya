@@ -234,7 +234,7 @@ if st.button("VEURE RESULTAT"):
     # ---------------------------
     # IDEOLOGIES (40)
     # ---------------------------
-ideologies = [
+    ideologies = [
         # --- BLOC CATALÀ ---
         ("Independentisme Identitari", 6, 7, -10, 9),
         ("Independentisme d'Esquerres", -8, -5, -10, -9),
