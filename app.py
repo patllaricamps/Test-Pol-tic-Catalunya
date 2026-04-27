@@ -7,7 +7,8 @@ st.set_page_config(page_title="TEST POLÍTIC-CAT", layout="centered")
 
 st.title("🗳️ Test Política Catalana")
 st.write("120 preguntes — 4 eixos: Econòmic, Autoritari, Nacional i Cultural. Respon amb sinceritat.")
-st.write("Fet per: @patllaricamps a Twitter (X).")
+st.write("Fet per: @patllaricamps a Twitter (X). El test és completament anòmim i no guarda cap dada.")
+
 
 # ---------------------------
 # PREGUNTES (120)
