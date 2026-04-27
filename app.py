@@ -22,8 +22,8 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-st.title("🗳️ Test Polític Català v6.0")
-st.write("Aquest test analitza la teva posició en 4 eixos i calcula l'afinitat amb corrents històrics i moderns.")
+st.title("🗳️ Test Política Catalana")
+st.write("Aquest test analitza la teva posició en 4 eixos i calcula l'afinitat amb corrents històrics i moderns. Fet per @patllaricamps a Twitter.")
 st.info("Respon amb sinceritat. L'escala va de 'Molt en contra' a 'Molt a favor'.")
 
 # --- BASE DE DADES DE PREGUNTES (75) ---
