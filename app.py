@@ -93,7 +93,7 @@ preguntes = [
     ("Tallar carreteres en protestes ha de comportar presó.", "Auth", True),
     ("La desobediència civil pacífica és un deure moral.", "Auth", False),
     ("Les èpoques difícils demanen líders forts i de mà dura.", "Auth", True),
-    ("El servei militar o cívic hauria de tornar a ser obligatori.", "Auth", True),
+    ("El servei militar o cívic hauria a ser obligatori.", "Auth", True),
     ("L'Estat ha d'expropiar béns a polítics i banquers corruptes.", "Auth", True),
     ("La prostitució ha de ser eradicada penalitzant els clients.", "Auth", True),
     ("S'haurien de legalitzar totes les drogues.", "Auth", False),
