@@ -7,14 +7,14 @@ st.set_page_config(page_title="TEST POLÍTIC-CAT", layout="centered")
 
 st.title("🗳️ Test Política Catalana")
 st.write("120 preguntes — 4 eixos: Econòmic, Autoritari, Nacional i Cultural. Respon amb sinceritat.")
-st.write("Fet per: @patllaricamps a Twitter (X). El test és completament anòmim i no guarda cap dada.")
-
+st.write("Fet per: @patllaricamps a Twitter (X). El test és completament anònim i no guarda cap dada.")
 
 # ---------------------------
 # PREGUNTES (120)
+# Format: (Text, Eix/Llista d'Eixos, Directe)
 # ---------------------------
 preguntes = [
-    # ECONÒMIC (30)
+    # ECONÒMIC
     ("Cal limitar el preu del lloguer.", "Econ", False),
     ("Cal reduir els impostos a les grans empreses.", "Econ", True),
     ("El turisme és un sector essencial i no s'ha de posar límits.", "Econ", True),
@@ -39,18 +39,18 @@ preguntes = [
     ("Els fons voltor que especulen amb l'habitatge han de ser expulsats.", "Econ", False),
     ("El dret a la propietat privada és absolut i intocable.", "Econ", True),
     ("L'acomiadament dels treballadors hauria de ser lliure i gratuït.", "Econ", True),
-    ("Cal reduir la jornada laboral a 32 hores setmanals sense reduir el sou.", "Econ", False),
+    ("Cal reduir la jornada laboral sense reduir el sou.", "Econ", False),
     ("S'hauria d'abolir l'existència de paradisos fiscals a nivell internacional.", "Econ", False),
     ("La desregulació de les criptomonedes és positiva per a l'economia.", "Econ", True),
     ("La creació d'una gran banca pública és innecessària.", "Econ", True),
     ("Els sindicats posen massa traves a la competitivitat de les empreses.", "Econ", True),
     ("Els treballadors haurien de participar en la presa de decisions empresarials.", "Econ", False),
 
-    # NACIONAL (25)
+    # NACIONAL
     ("Catalunya ha de ser un Estat independent en forma de República.", "Nac", False),
     ("La unitat d'Espanya és sagrada i indivisible.", "Nac", True),
     ("El conflicte es podria resoldre amb un Estat federal espanyol.", "Nac", True),
-    ("L'autodeterminació és un dret legítim que Catalunya pot exercir unilateralment.", "Nac", False),
+    ("L'autodeterminació és un dret legítim que Catalunya, i qualsevol poble, pot exercir unilateralment.", "Nac", False),
     ("L'Estatut d'Autonomia actual és més que suficient.", "Nac", True),
     ("S'ha de suprimir la Generalitat i centralitzar les competències a Madrid.", "Nac", True),
     ("Els Països Catalans formen una única nació històrica i cultural.", "Nac", False),
@@ -63,7 +63,7 @@ preguntes = [
     ("L'Estat hauria de permetre un referèndum d'independència pactat i vinculant.", "Nac", False),
     ("El procés independentista va ser un cop d'estat a la democràcia.", "Nac", True),
     ("Les seleccions esportives catalanes haurien de competir oficialment a nivell internacional.", "Nac", False),
-    ("Cal que les forces i cossos de seguretat de l'Estat marxin de Catalunya.", "Nac", False),
+    ("Cal que les forces i cossos de seguretat de l'Estat espanyol marxin de Catalunya.", "Nac", False),
     ("La Constitució Espanyola de 1978 és intocable.", "Nac", True),
     ("L'1 d'Octubre de 2017 va ser una expressió democràtica legítima.", "Nac", False),
     ("S'ha d'aplicar de nou l'article 155 de forma contundent.", "Nac", True),
@@ -73,55 +73,55 @@ preguntes = [
     ("Els indults i l'amnistia van ser un error històric.", "Nac", True),
     ("El català hauria de ser l'única llengua oficial i vehicular.", "Nac", False),
 
-    # AUTORITAT (29)
+    # AUTORITAT I ENCREUADES
     ("La policia hauria de tenir més autoritat i menys controls.", "Auth", True),
     ("Mantenir l'ordre públic és més important que certes protestes.", "Auth", True),
-    ("El dret a vaga en serveis essencials hauria d'estar prohibit.", "Auth", True),
+    ("El dret a vaga en serveis essencials hauria d'estar prohibit.", [("Auth", True), ("Econ", True)], True),
     ("La democràcia representativa s'ha de substituir per assemblees populars.", "Auth", False),
-    ("Els 'okupes' han de ser desallotjats per la força de forma immediata.", "Auth", True),
+    ("Els 'okupes' han de ser desallotjats per la força de forma immediata.", [("Auth", True), ("Econ", True)], True),
     ("És lícit que el govern controli internet en crisis extremes.", "Auth", True),
-    ("Les lleis haurien de castigar els discursos d'odi a les xarxes.", "Auth", True),
+    ("Les lleis haurien de castigar els discursos d'odi a les xarxes.", [("Auth", True), ("Cult", False)], True),
     ("La instal·lació de càmeres de reconeixement facial aporta seguretat.", "Auth", True),
     ("Els delictes greus s'haurien de castigar amb la cadena perpètua.", "Auth", True),
     ("Idealment, l'Estat no hauria d'existir.", "Auth", False),
-    ("S'han d'il·legalitzar partits que vulguin subvertir la Constitució.", "Auth", True),
+    ("S'han d'il·legalitzar partits que vulguin subvertir la Constitució (de la teva nació).", "Auth", True),
     ("La llibertat d'expressió ha de ser absoluta.", "Auth", False),
     ("El rastreig de comunicacions és justificable per prevenir atemptats.", "Auth", True),
     ("L'obediència i el respecte a la jerarquia són fonamentals.", "Auth", True),
-    ("Els mitjans privats haurien d'estar intervinguts per l'Estat.", "Auth", True),
+    ("Els mitjans privats haurien d'estar intervinguts per l'Estat.", [("Auth", True), ("Econ", False)], True),
     ("Els cossos d'antiavalots haurien de ser dissolts.", "Auth", False),
     ("Tallar carreteres en protestes ha de comportar presó.", "Auth", True),
     ("La desobediència civil pacífica és un deure moral.", "Auth", False),
     ("Les èpoques difícils demanen líders forts i de mà dura.", "Auth", True),
-    ("El servei militar o cívic hauria a ser obligatori.", "Auth", True),
-    ("L'Estat ha d'expropiar béns a polítics i banquers corruptes.", "Auth", True),
+    ("El servei militar o cívic (per a la teva nació) hauria de ser obligatori.", "Auth", True),
+    ("L'Estat ha d'expropiar béns a polítics i banquers corruptes.", [("Auth", True), ("Econ", False)], True),
     ("La prostitució ha de ser eradicada penalitzant els clients.", "Auth", True),
-    ("S'haurien de legalitzar totes les drogues.", "Auth", False),
+    ("S'haurien de legalitzar totes les drogues.", [("Auth", False), ("Cult", False)], False),
     ("Els jutges han de tenir l'última paraula per damunt dels parlaments.", "Auth", True),
     ("El sistema penitenciari ha de centrar-se només en la reinserció.", "Auth", False),
     ("Tots els policies han de portar càmeres enregistrant les actuacions.", "Auth", False),
     ("L'Estat pot confinar obligatòriament la població en emergències.", "Auth", True),
-    ("Cremar banderes hauria de considerar-se delicte de presó.", "Auth", True),
+    ("Cremar banderes (de qualsevol nació) hauria de considerar-se delicte de presó.", "Auth", True),
     ("Cal aplicar lleis antiterroristes a activistes radicals encara que no usin armes.", "Auth", True),
 
-    # CULTURAL (36)
-    ("Els ciutadans haurien de poder posseir armes per defensar-se.", "Cult", False),
+    # CULTURAL I ENCREUADES
+    ("Els ciutadans haurien de poder posseir armes per defensar-se.", [("Auth", True), ("Cult", False)], True),
     ("Les tradicions històriques s'han de preservar per sobre de tot.", "Cult", True),
     ("Els valors cristians són el pilar de la nostra societat.", "Cult", True),
     ("El gènere és un constructe social i l'elecció ha de ser lliure.", "Cult", False),
     ("L’avortament ha de ser legal, lliure i gratuït.", "Cult", False),
     ("La família tradicional és la cèl·lula ideal de la societat.", "Cult", True),
     ("El multiculturalisme és positiu i enriquidor.", "Cult", False),
-    ("Cal penalitzar el vehicle privat per motius ecologistes.", "Cult", False),
-    ("Les renovables han de passar per davant del creixement econòmic.", "Cult", False),
+    ("Cal penalitzar el vehicle privat per motius ecologistes.", [("Auth", True), ("Cult", False), ("Econ", False)], False),
+    ("Les renovables han de passar per davant del creixement econòmic.", [("Cult", False), ("Econ", False)], False),
     ("S'ha de defensar la identitat autòctona davant d'influències externes.", "Cult", True),
     ("Totes les cultures són igualment respectables.", "Cult", False),
     ("El moviment feminista actual és imprescindible.", "Cult", False),
-    ("La immigració massiva posa en perill la seguretat del país.", "Cult", True),
+    ("La immigració massiva posa en perill la seguretat del país.", [("Auth", True), ("Cult", True)], True),
     ("Cal preservar festes tradicionals amb animals.", "Cult", True),
     ("La religió hauria de tenir pes a l'espai públic.", "Cult", True),
     ("La societat ha de ser estrictament laica.", "Cult", False),
-    ("S'ha de poder censurar l'art si ofèn sentiments religiosos.", "Cult", True),
+    ("S'ha de poder censurar l'art si ofèn sentiments religiosos.", [("Auth", True), ("Cult", True)], True),
     ("La diversitat racial fa avançar la societat.", "Cult", False),
     ("Els rols de gènere clàssics obeeixen a la naturalesa biològica.", "Cult", True),
     ("La globalització posa en perill els valors locals.", "Cult", True),
@@ -135,9 +135,9 @@ preguntes = [
     ("Parelles del mateix sexe han de poder adoptar.", "Cult", False),
     ("L'home blanc heterosexual gaudeix de privilegis invisibles.", "Cult", False),
     ("S'han de retirar estàtues lligades al colonialisme.", "Cult", False),
-    ("L'Estat ha de deixar de finançar escoles que segreguen per sexe.", "Cult", False),
-    ("Cal limitar dràsticament l'arribada d'immigrants.", "Cult", True),
-    ("Prioritat als autòctons en ajudes socials i habitatge.", "Cult", True),
+    ("L'Estat ha de deixar de finançar escoles que segreguen per sexe.", [("Cult", False), ("Econ", False)], True),
+    ("Cal limitar dràsticament l'arribada d'immigrants.", [("Auth", True), ("Cult", True)], True),
+    ("Prioritat als autòctons en ajudes socials i habitatge.", [("Cult", True), ("Econ", False)], True),
     ("Cal facilitar al màxim l'acollida de refugiats.", "Cult", False),
     ("L'islam és incompatible amb els valors europeus.", "Cult", True),
     ("L'arribada d''expats' dilueix la identitat dels barris.", "Cult", True),
@@ -150,7 +150,8 @@ opcions = [1, 2, 3, 4, 5]
 labels = {1: "Molt en contra", 2: "En contra", 3: "Neutral", 4: "A favor", 5: "Molt a favor"}
 
 respostes = {}
-for i, (text, eix, directe) in enumerate(preguntes):
+for i, item in enumerate(preguntes):
+    text = item[0]
     respostes[i] = st.select_slider(f"{i+1}. {text}", options=opcions, value=3, format_func=lambda x: labels[x], key=f"p_{i}")
 
 # ---------------------------
@@ -191,14 +192,25 @@ if st.button("VEURE RESULTAT"):
     puntuacions = {"Econ": 0, "Nac": 0, "Auth": 0, "Cult": 0}
     comptador = {"Econ": 0, "Nac": 0, "Auth": 0, "Cult": 0}
 
-    for i, (text, eix, directe) in enumerate(preguntes):
+    for i, item in enumerate(preguntes):
         v = respostes[i]
-        if not directe: v = 6 - v
-        puntuacions[eix] += v
-        comptador[eix] += 1
+        
+        # Detectar si és format antic (str) o nou (list)
+        if isinstance(item[1], str):
+            eixos_afectats = [(item[1], item[2])]
+        else:
+            eixos_afectats = item[1]
+
+        for eix, directe in eixos_afectats:
+            valor_final = v if directe else (6 - v)
+            puntuacions[eix] += valor_final
+            comptador[eix] += 1
 
     r = {}
     for eix in puntuacions:
+        if comptador[eix] == 0:
+            r[eix] = 0
+            continue
         min_score = comptador[eix] * 1
         max_score = comptador[eix] * 5
         r[eix] = ((puntuacions[eix] - min_score) / (max_score - min_score)) * 20 - 10
@@ -219,10 +231,11 @@ if st.button("VEURE RESULTAT"):
         st.metric("Cultural", round(r["Cult"], 1))
         st.info(f"**{label_cult(r['Cult'])}**")
 
-    # ---------------------------
-    # IDEOLOGIES
+   # ---------------------------
+    # IDEOLOGIES (40)
     # ---------------------------
     ideologies = [
+        # --- ORIGINALS CONSERVADES ---
         ("Independentisme Identitari", 6, 7, -10, 9),
         ("Revolucionarisme", -10, 6, -8, -9),
         ("Independentisme d'Esquerres", -8, -5, -10, -9),
@@ -242,27 +255,42 @@ if st.button("VEURE RESULTAT"):
         ("Extrema Dreta Alternativa (Alt-Right)", 8, 8, 8, 10),
         ("Socioliberalisme", 2, -4, 0, -5),
         ("Nacionalisme de Centre-Dreta", 5, 2, -6, 5),
-        ("Carlisme Tradicionalista", -2, 8, -4, 10),
-        ("Falangisme", -5, 10, 10, 9),
-        ("Lerrouxisme", -4, 4, 9, -8),
-        ("Maoisme", -9, 9, 0, -5),
-        ("Estalinisme", -10, 10, 0, 2),
-        ("Neoconservadorisme", 7, 7, 0, 8),
-        ("Minarquisme", 9, -8, 0, -2),
-        ("Feixisme Clàssic", -2, 10, 5, 9),
-        ("Populisme de Dretes", 4, 7, 6, 9),
-        ("Progressisme Woke", -6, 2, 0, -10)
+
+        # --- NOVES INCORPORACIONS LOCALS ---
+        ("Carlisme Tradicionalista", -2, 8, -3, 10), # Déu, Pàtria, Rei (Furs)
+        ("Falangisme (Nacional-Sindicalisme)", -5, 10, 10, 9), # Anti-capitalista però feixista
+        ("Lerrouxisme", -3, 4, 9, -8), # Republicà, populist i espanyolista radical
+        ("Nacional-Bolxevisme (Nazbol)", -9, 10, 0, 10), # Economia d'esquerra, autoritat i cultura de dreta
+        ("Aznarisme / Dreta Unificada", 7, 6, 9, 8), # Neoliberalisme i centralisme fort
+        ("Socialisme de Caviar (Gauche Divine)", -4, -4, 0, -8), # Estètica d'esquerra, vida acomodada
+        ("Regionalisme No-Nacionalista", 2, 2, 4, 3), # Autonomisme clàssic sense trencar res
+
+        # --- INTERNACIONALS I FILOSÒFIQUES ---
+        ("Estalinisme", -10, 10, 0, 2), # Estat totalitari i economia planificada
+        ("Trotskisme", -10, 4, 0, -10), # Revolució permanent i internacionalisme
+        ("Maoisme", -9, 9, 0, -5), # Camperolisme i revolució cultural
+        ("Feixisme Clàssic (Mussolini)", -2, 10, 5, 9), # Tot dins l'Estat
+        ("Nacionalsocialisme (Nazi)", 2, 10, 10, 10), # Racisme biològic i estat total
+        ("Minarquisme", 9, -8, 0, -2), # L'Estat només per a policia i jutges
+        ("Ecofeixisme", -2, 9, 0, 8), # Autoritarisme extrem per salvar el planeta
+        ("Neoconservadorisme (Bush style)", 7, 7, 0, 8), # Intervencionisme militar i lliure mercat
+        ("Distributisme", -3, 3, 0, 8), # Propietat petita i valors cristians (Chesterton)
+        ("Anarquisme Individualista", 0, -10, 0, -8), # Max Stirner, l'Ego
+        ("Tecnocràcia", 2, 6, 0, -4), # Govern dels experts, no dels polítics
+        ("Mutualisme", -7, -8, 0, -7), # Proudhon, mercat sense capitalisme
+        ("Populisme de Dretes", 4, 7, 6, 9), # Estil Trump o Orban
+        ("Progressisme Woke", -6, 2, 0, -10), # Focus total en identitats i justícia social
     ]
 
     st.subheader("Afinitat ideològica")
     resultats_afinitat = []
     for nom, e, a, n, c in ideologies:
         dist = np.sqrt((r["Econ"] - e)**2 + (r["Auth"] - a)**2 + (r["Nac"] - n)**2 + (r["Cult"] - c)**2)
-        p = max(0, 100 - dist * 4)
-        resultats_afinitat.append((nom, p))
+        max_dist = np.sqrt((20)**2 * 4)
+        p = max(0, 100 * (1 - dist / max_dist))
     
     resultats_afinitat.sort(key=lambda x: x[1], reverse=True)
-    for nom, p in resultats_afinitat[:10]: # Mostrem les 10 primeres
+    for nom, p in resultats_afinitat[:10]:
         st.write(f"**{nom}**: {round(p,1)}%")
         st.progress(p/100)
         
