@@ -3,12 +3,10 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import numpy as np
 
-st.set_page_config(page_title="TEST POLITIC-CAT", layout="centered")
+st.set_page_config(page_title="POLITIC-CAT PRO", layout="centered")
 
-st.title("🗳️ Test Política Catalana")
-st.write("Fet per @patllaricamps a Twitter (X).")
-st.write("80 preguntes — 4 eixos: Econòmic, Nacional, Autoritat i Cultural")
-st.write("Respon de 1 (molt en contra) a 5 (molt a favor).")
+st.title("🗳️ Test Política Catalana PRO")
+st.write("80 preguntes — 4 eixos. Respon amb sinceritat.")
 
 # ---------------------------
 # PREGUNTES (80)
@@ -105,11 +103,9 @@ preguntes = [
 ]
 
 # ---------------------------
-# UI
+# UI (slider amb text)
 # ---------------------------
-respostes = {}
-for i, (text, eix, directe) in enumerate(preguntes):
-    opcions = [1, 2, 3, 4, 5]
+opcions = [1, 2, 3, 4, 5]
 labels = {
     1: "Molt en contra",
     2: "En contra",
@@ -118,13 +114,15 @@ labels = {
     5: "Molt a favor"
 }
 
-respostes[i] = st.select_slider(
-    f"{i+1}. {text}",
-    options=opcions,
-    value=3,
-    format_func=lambda x: labels[x],
-    key=f"p_{i}"
-)
+respostes = {}
+for i, (text, eix, directe) in enumerate(preguntes):
+    respostes[i] = st.select_slider(
+        f"{i+1}. {text}",
+        options=opcions,
+        value=3,
+        format_func=lambda x: labels[x],
+        key=f"p_{i}"
+    )
 
 # ---------------------------
 # RESULTATS
@@ -141,14 +139,12 @@ if st.button("VEURE RESULTAT"):
         puntuacions[eix] += v
         comptador[eix] += 1
 
-    # NORMALITZACIÓ CORRECTA (-10 a 10 REAL)
+    # Normalització correcta
     r = {}
     for eix in puntuacions:
         min_score = comptador[eix] * 1
         max_score = comptador[eix] * 5
-        score = puntuacions[eix]
-
-        r[eix] = ((score - min_score) / (max_score - min_score)) * 20 - 10
+        r[eix] = ((puntuacions[eix] - min_score) / (max_score - min_score)) * 20 - 10
 
     st.header("📊 Resultat")
     st.write(r)
@@ -194,30 +190,24 @@ if st.button("VEURE RESULTAT"):
 
     # Econ/Auth
     ax[0].set_xlim(-11, 11); ax[0].set_ylim(-11, 11)
-    ax[0].axhline(0, color='black', lw=1)
-    ax[0].axvline(0, color='black', lw=1)
-
+    ax[0].axhline(0, color='black'); ax[0].axvline(0, color='black')
     ax[0].add_patch(patches.Rectangle((-11, 0), 11, 11, color='blue', alpha=0.1))
     ax[0].add_patch(patches.Rectangle((0, 0), 11, 11, color='red', alpha=0.1))
     ax[0].add_patch(patches.Rectangle((-11, -11), 11, 11, color='green', alpha=0.1))
     ax[0].add_patch(patches.Rectangle((0, -11), 11, 11, color='yellow', alpha=0.1))
-
-    ax[0].scatter(r['Econ'], r['Auth'], s=200, c='black', zorder=5)
+    ax[0].scatter(r['Econ'], r['Auth'], s=200, c='black')
     ax[0].set_title("Econòmic / Autoritat")
     ax[0].set_xlabel("← Esq | Dre →")
     ax[0].set_ylabel("← Lib | Auth →")
 
     # Nac/Cult
     ax[1].set_xlim(-11, 11); ax[1].set_ylim(-11, 11)
-    ax[1].axhline(0, color='black', lw=1)
-    ax[1].axvline(0, color='black', lw=1)
-
+    ax[1].axhline(0, color='black'); ax[1].axvline(0, color='black')
     ax[1].add_patch(patches.Rectangle((-11, -11), 11, 11, color='gold', alpha=0.1))
     ax[1].add_patch(patches.Rectangle((0, -11), 11, 11, color='pink', alpha=0.1))
     ax[1].add_patch(patches.Rectangle((-11, 0), 11, 11, color='purple', alpha=0.1))
     ax[1].add_patch(patches.Rectangle((0, 0), 11, 11, color='orange', alpha=0.1))
-
-    ax[1].scatter(r['Nac'], r['Cult'], s=200, c='black', zorder=5)
+    ax[1].scatter(r['Nac'], r['Cult'], s=200, c='black')
     ax[1].set_title("Nacional / Cultural")
     ax[1].set_xlabel("← Cat | Esp →")
     ax[1].set_ylabel("← Prog | Cons →")
