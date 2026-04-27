@@ -234,54 +234,66 @@ if st.button("VEURE RESULTAT"):
     # ---------------------------
     # IDEOLOGIES (40)
     # ---------------------------
-    ideologies = [
-        # --- ORIGINALS CONSERVADES ---
+ideologies = [
+        # --- BLOC CATALÀ ---
         ("Independentisme Identitari", 6, 7, -10, 9),
-        ("Revolucionarisme", -10, 6, -8, -9),
         ("Independentisme d'Esquerres", -8, -5, -10, -9),
-        ("Socialdemocràcia Sobiranista", -5, -2, -9, -7),
+        ("Socialdemocràcia Sobiranista", -5, -2, -5, -3), # Ajustada per ser més "real"
         ("Noucentisme / Post-Convergència", 4, 3, -9, 4),
-        ("Anarcosindicalisme", -10, -10, -3, -9),
+        ("Estat Català / Dencasisme", -6, 9, -10, 7), # Nova: Nacionalisme radical, ordre i base obrera
+        ("Carlisme Huguista (Socialisme Autogestionari)", -6, -2, -9, 3),
+        ("Nacionalisme de Centre-Dreta", 5, 2, -6, 5),
+
+        # --- BLOC ESPANYOL ---
         ("Nacionalisme Espanyol Radical", 8, 9, 10, 10),
         ("Federalisme d'Esquerres", -7, -3, 3, -9),
         ("Socialdemocràcia Constitucionalista", -4, 2, 6, -5),
-        ("Liberalisme Radical (Anarcocapitalisme)", 10, -10, 0, -3),
-        ("Carlisme Huguista (Socialisme Autogestionari)", -6, -2, -9, 3),
-        ("Eco-socialisme", -8, -4, -3, -10),
-        ("Liberal-progressisme", 6, -3, 2, -6),
-        ("Conservadorisme moderat", 6, 5, 5, 7),
-        ("Democràcia Cristiana", 3, 4, -4, 7),
-        ("Comunisme Marxista-Leninista", -10, 9, -5, -6),
-        ("Extrema Dreta Alternativa (Alt-Right)", 8, 8, 8, 10),
-        ("Socioliberalisme", 2, -4, 0, -5),
-        ("Nacionalisme de Centre-Dreta", 5, 2, -6, 5),
-
-        # --- NOVES INCORPORACIONS LOCALS ---
-        ("Carlisme Tradicionalista", -2, 8, -3, 10),
-        ("Falangisme (Nacional-Sindicalisme)", -5, 10, 10, 9),
-        ("Lerrouxisme", -3, 4, 9, -8),
-        ("Nacional-Bolxevisme (Nazbol)", -9, 10, 0, 10),
         ("Aznarisme / Dreta Unificada", 7, 6, 8, 8),
-        ("Socialisme de Caviar (Gauche Divine)", -4, -4, 0, -8),
+        ("Falangisme (Nacional-Sindicalisme)", -5, 10, 10, 9),
+        ("Nacional-Sindicalisme (Ledesma Ramos)", -8, 10, 10, 8), # Nova: Més radical econòmicament que Primo de Rivera
+        ("Lerrouxisme", -3, 4, 9, -8),
         ("Regionalisme No-Nacionalista", 2, 2, 4, 3),
 
-        # --- INTERNACIONALS I FILOSÒFIQUES ---
+        # --- ESQUERRA RADICAL I FILOSÒFIQUES ---
+        ("Revolucionarisme", -10, 6, -8, -9),
+        ("Anarcosindicalisme", -10, -10, -3, -9),
+        ("Comunisme Marxista-Leninista", -10, 9, -5, -6),
         ("Estalinisme", -10, 10, 0, 2),
         ("Trotskisme", -10, 4, 0, -10),
         ("Maoisme", -9, 9, 0, -5),
+        ("Eco-socialisme", -8, -4, -3, -10),
+        ("Mutualisme", -7, -8, 0, -7),
+        ("Anarquisme Individualista", 0, -10, 0, -8),
+        ("Socialisme de Caviar (Gauche Divine)", -4, -4, 0, -8),
+
+        # --- DRETA I LIBERALISME ---
+        ("Liberalisme Radical (Anarcocapitalisme)", 10, -10, 0, -3),
+        ("Minarquisme", 9, -8, 0, -2),
+        ("Liberal-progressisme", 6, -3, 2, -6),
+        ("Socioliberalisme", 2, -4, 0, -5),
+        ("Conservadorisme moderat", 6, 5, 5, 7),
+        ("Democràcia Cristiana", 3, 4, -4, 7),
+        ("Neoconservadorisme (Bush style)", 7, 7, 0, 8),
+        ("Tecnocràcia", 2, 6, 0, -4),
+
+        # --- REACCIONARISME I TERCERA VIA ---
+        ("Carlisme Tradicionalista", -2, 8, -3, 10),
+        ("Nacional-Bolxevisme (Nazbol)", -9, 10, 0, 10),
+        ("Extrema Dreta Alternativa (Alt-Right)", 8, 8, 8, 10),
         ("Feixisme Clàssic (Mussolini)", -2, 10, 5, 9),
         ("Nacionalsocialisme (Nazi)", 2, 10, 10, 10),
-        ("Minarquisme", 9, -8, 0, -2),
         ("Ecofeixisme", -2, 9, 0, 8),
-        ("Neoconservadorisme (Bush style)", 7, 7, 0, 8),
         ("Distributisme", -3, 3, 0, 8),
-        ("Anarquisme Individualista", 0, -10, 0, -8),
-        ("Tecnocràcia", 2, 6, 0, -4),
-        ("Mutualisme", -7, -8, 0, -7),
         ("Populisme de Dretes", 4, 7, 6, 9),
         ("Progressisme Woke", -6, 2, 0, -10),
+    
+    # --- EL QUE ET FALTA PER COMPLETAR EL MAPA ---
+        ("Centrisme Liberal / Moderat", 2, -2, 0, 0),
+        ("Neoprocessisme Gestor", 0, 2, -7, -2),
+        ("Anarcoprimitivisme", -10, -10, 0, -5),
+        ("Dreta Il·liberal Identitària", 4, 8, -10, 10),
+        ("Populisme Unionista de Barris", -2, 6, 9, 4),
     ]
-
     st.subheader("Afinitat ideològica")
     resultats_afinitat = []
     for nom, e, a, n, c in ideologies:
