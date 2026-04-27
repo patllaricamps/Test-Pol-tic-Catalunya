@@ -6,15 +6,15 @@ import numpy as np
 st.set_page_config(page_title="TEST POLITIC-CAT ", layout="centered")
 
 st.title("🗳️ Test Política Catalana")
-st.write("80 preguntes — 4 eixos: Econòmic, Autoritari, Nacional i Cultural. Respon amb sinceritat.")
+st.write("120 preguntes — 4 eixos: Econòmic, Autoritari, Nacional i Cultural. Respon amb sinceritat.")
 st.write("Fet per: @patllaricamps a Twitter (X).")
 
 # ---------------------------
-# PREGUNTES (80)
+# PREGUNTES (120)
 # ---------------------------
 preguntes = [
 
-# ECONÒMIC
+# ECONÒMIC (30)
 ("Cal limitar el preu del lloguer.", "Econ", False),
 ("Cal reduir impostos a empreses.", "Econ", True),
 ("El turisme és essencial per l’economia.", "Econ", True),
@@ -35,8 +35,18 @@ preguntes = [
 ("El mercat laboral ha de ser flexible.", "Econ", True),
 ("Cal garantir renda bàsica universal.", "Econ", False),
 ("Cal limitar els beneficis empresarials.", "Econ", False),
+("L'edat de jubilació s'hauria de retardar.", "Econ", True),
+("Els bancs que van rebre ajudes públiques han de retornar-les íntegrament.", "Econ", False),
+("El dret a la propietat privada és absolut i inalienable.", "Econ", True),
+("La contractació temporal és necessària per a l'economia.", "Econ", True),
+("L'Estat ha d'actuar com a garant d'ocupació pública si el mercat falla.", "Econ", False),
+("Cal abolir els paradisos fiscals a nivell internacional.", "Econ", False),
+("Les criptomonedes s'han de desregular per atraure capital.", "Econ", True),
+("La banca pública és necessària per finançar projectes socials.", "Econ", False),
+("Els sindicats tenen massa poder en la negociació col·lectiva.", "Econ", True),
+("L'acomiadament hauria de ser lliure i gratuït.", "Econ", True),
 
-# NACIONAL
+# NACIONAL (30)
 ("Catalunya ha de ser independent.", "Nac", False),
 ("Catalunya ha de seguir dins Espanya.", "Nac", True),
 ("Cal més autonomia per Catalunya.", "Nac", False),
@@ -57,8 +67,18 @@ preguntes = [
 ("La immigració enriqueix la societat.", "Nac", False),
 ("Cal prioritzar ciutadans locals.", "Nac", True),
 ("Catalunya ha de liderar Europa.", "Nac", False),
+("L'autodeterminació és un dret inalienable dels pobles.", "Nac", False),
+("Cal recuperar els símbols nacionals espanyols a les institucions de Catalunya.", "Nac", True),
+("El castellà hauria de ser l'única llengua vehicular a les escoles.", "Nac", True),
+("L'Estatut vigent ja ofereix suficient autogovern.", "Nac", True),
+("S'han de boicotejar els productes d'empreses que van marxar el 2017.", "Nac", False),
+("Catalunya té un dèficit fiscal insostenible amb l'Estat.", "Nac", False),
+("La monarquia espanyola és un símbol d'unió indispensable.", "Nac", True),
+("Espanya és una realitat històrica indivisible.", "Nac", True),
+("Cal impulsar l'oficialitat del català a les institucions europees.", "Nac", False),
+("La independència perjudicaria greument l'economia catalana.", "Nac", True),
 
-# AUTORITAT
+# AUTORITAT (30)
 ("Cal més presència policial.", "Auth", True),
 ("L’ordre públic és prioritari.", "Auth", True),
 ("Cal limitar el dret a vaga.", "Auth", True),
@@ -79,8 +99,18 @@ preguntes = [
 ("Les protestes han de ser limitades.", "Auth", True),
 ("La desobediència civil és legítima.", "Auth", False),
 ("Cal un líder fort.", "Auth", True),
+("El servei militar hauria de tornar a ser obligatori.", "Auth", True),
+("Els polítics corruptes haurien de perdre el seu patrimoni personal.", "Auth", True),
+("La prostitució hauria de ser abolida per llei.", "Auth", True),
+("El consum de drogues s'hauria de despenalitzar totalment.", "Auth", False),
+("Els tribunals han de tenir més poder que els polítics escollits.", "Auth", True),
+("Cal tancar les presons i apostar per la reinserció comunitària.", "Auth", False),
+("Els policies haurien de dur número visible i càmera al pit.", "Auth", False),
+("En cas d'emergència nacional, el govern ha de poder suspendre drets civils.", "Auth", True),
+("Cal prohibir la crema de banderes en manifestacions.", "Auth", True),
+("Les lleis antiterroristes s'utilitzen abusivament contra dissidents.", "Auth", False),
 
-# CULTURAL
+# CULTURAL (30)
 ("La tradició catalana és important.", "Cult", True),
 ("El cristianisme és clau a la societat.", "Cult", True),
 ("El gènere és una elecció personal.", "Cult", False),
@@ -101,6 +131,16 @@ preguntes = [
 ("Cal mantenir rols de gènere tradicionals.", "Cult", True),
 ("La globalització cultural és positiva.", "Cult", False),
 ("Cal protegir valors occidentals.", "Cult", True),
+("Les minories ètniques necessiten quotes als llocs de decisió.", "Cult", False),
+("L'educació sexual i afectiva ha de ser obligatòria a l'escola.", "Cult", False),
+("Cal protegir la tauromàquia com a patrimoni cultural.", "Cult", True),
+("L'eutanàsia hauria de ser accessible a tothom que la demani.", "Cult", False),
+("Els vegans volen imposar la seva dieta a la resta de la societat.", "Cult", True),
+("L'ús de pronoms neutres és una moda passatgera innecessària.", "Cult", True),
+("Les adopcions per part de parelles del mateix sexe són igual de vàlides.", "Cult", False),
+("La ciència occidental està massa esbiaixada pel masclisme.", "Cult", False),
+("S'ha de retirar les estàtues de personatges històrics vinculats a l'esclavisme.", "Cult", False),
+("Els missatges religiosos no han de tenir lloc en els debats parlamentaris.", "Cult", False),
 ]
 
 # ---------------------------
@@ -140,7 +180,7 @@ if st.button("VEURE RESULTAT"):
         puntuacions[eix] += v
         comptador[eix] += 1
 
-    # Normalització correcta
+    # Normalització correcta (Permet arribar exactament a 10 i -10)
     r = {}
     for eix in puntuacions:
         min_score = comptador[eix] * 1
@@ -148,7 +188,12 @@ if st.button("VEURE RESULTAT"):
         r[eix] = ((puntuacions[eix] - min_score) / (max_score - min_score)) * 20 - 10
 
     st.header("📊 Resultat")
-    st.write(r)
+    
+    col1, col2, col3, col4 = st.columns(4)
+    col1.metric("Econòmic", round(r["Econ"], 1))
+    col2.metric("Nacional", round(r["Nac"], 1))
+    col3.metric("Autoritat", round(r["Auth"], 1))
+    col4.metric("Cultural", round(r["Cult"], 1))
 
     # ---------------------------
     # IDEOLOGIES
@@ -165,14 +210,22 @@ if st.button("VEURE RESULTAT"):
         ("Socialdemocràcia Constitucionalista", -4, 2, 6, -5),
         ("Liberalisme Radical (Anarcocapitalisme)", 10, -10, 0, -3),
         ("Carlisme Huguista", -6, -2, -9, 3),
-
         ("Eco-socialisme", -8, -4, -3, -10),
         ("Liberal-progressisme", 6, -3, 2, -6),
         ("Conservadorisme moderat", 6, 5, 5, 7),
+        # --- NOVES IDEOLOGIES ---
+        ("Democràcia Cristiana", 3, 4, -4, 7),
+        ("Comunisme Marxista-Leninista", -10, 9, -5, -6),
+        ("Extrema Dreta Alternativa (Alt-Right)", 8, 8, 8, 10),
+        ("Socioliberalisme", 2, -4, 0, -5),
+        ("Nacionalisme de Centre-Dreta", 5, 2, -6, 5),
     ]
 
     st.subheader("Afinitat ideològica")
 
+    # Guardem els resultats en una llista per poder-los ordenar
+    resultats_afinitat = []
+    
     for nom, e, a, n, c in ideologies:
         dist = np.sqrt(
             (r["Econ"] - e) ** 2 +
@@ -181,7 +234,14 @@ if st.button("VEURE RESULTAT"):
             (r["Cult"] - c) ** 2
         )
         p = max(0, 100 - dist * 4)
-        st.write(f"{nom}: {round(p,1)}%")
+        resultats_afinitat.append((nom, p))
+
+    # Ordenem de més semblança a menys
+    resultats_afinitat.sort(key=lambda x: x[1], reverse=True)
+
+    # Imprimim a la pantalla
+    for nom, p in resultats_afinitat:
+        st.write(f"**{nom}**: {round(p,1)}%")
         st.progress(p/100)
 
     # ---------------------------
