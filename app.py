@@ -247,76 +247,85 @@ if submitted:
         # ---------------------------
         ideologies = [
             # --- BLOC CATALÀ ---
-            ("Independentisme Identitari", 6, 7, -10, 9),
-            ("Independentisme d'Esquerres", -8, -5, -10, -9),
-            ("Socialdemocràcia Sobiranista", -5, -2, -5, -3), 
-            ("Noucentisme / Post-Convergència", 4, 3, -9, 4),
-            ("Estat Català / Dencasisme", -6, 9, -10, 7), 
-            ("Carlisme Huguista (Socialisme Autogestionari)", -6, -2, -9, 3),
-            ("Nacionalisme de Centre-Dreta", 5, 2, -6, 5),
+            ("Independentisme Identitari", 6, 7, -10, 9, "Independentisme unilateral d'ordre que prioritza la supervivència cultural i l'homogeneïtat social."),
+            ("Independentisme d'Esquerres", -8, -5, -10, -9, "Ruptura unilateral per construir una República Catalana amb un model econòmic post-capitalista."),
+            ("Sobiranisme Progressista", -6, -2, -8, -7, "Dret a l'autodeterminació i sobiranisme social centrat en la conquesta de drets civils i nacionals."),
+            ("Socialdemocràcia Catalanista", -4, 1, -5, -3, "Defensa de l'autogovern i l'estat del benestar dins un marc d'entesa o reforma confederal."),
+            ("Noucentisme / Post-Convergència", 4, 3, -9, 4, "Liberalisme nacional català amb un fort component institucional, pragmàtic i de construcció d'estructures d'estat."),
+            ("Estat Català / Dencasisme", -6, 9, -10, 7, "Nacionalisme català històric de tall paramilitar: ordre, jerarquia i acció directa per la independència."),
+            ("Carlisme Huguista", -6, -2, -9, 3, "Socialisme autogestionari d'arrel tradicional catalana: comunitat, furs i oposició a l'estat liberal."),
+            ("Nacionalisme de Centre-Dreta", 5, 2, -6, 5, "Catalanisme clàssic que cerca l'equilibri entre el progrés econòmic privat i el reconeixement nacional."),
 
             # --- BLOC ESPANYOL ---
-            ("Nacionalisme Espanyol Radical", 8, 9, 10, 10),
-            ("Federalisme d'Esquerres", -7, -3, 3, -9),
-            ("Socialdemocràcia Constitucionalista", -4, 2, 6, -5),
-            ("Aznarisme / Dreta Unificada", 7, 6, 8, 8),
-            ("Falangisme (Nacional-Sindicalisme)", -5, 10, 10, 9),
-            ("Nacional-Sindicalisme (Ledesma Ramos)", -8, 10, 10, 8), 
-            ("Lerrouxisme", -3, 4, 9, -8),
-            ("Regionalisme No-Nacionalista", 2, 2, 4, 3),
-
-            # --- ESQUERRA RADICAL I FILOSÒFIQUES ---
-            ("Revolucionarisme", -10, 6, -2, -9),
-            ("Anarcosindicalisme", -10, -10, -3, -9),
-            ("Comunisme Marxista-Leninista", -10, 9, -5, -6),
-            ("Estalinisme", -10, 10, 0, 2),
-            ("Trotskisme", -10, 4, 0, -10),
-            ("Maoisme", -9, 9, 0, -5),
-            ("Eco-socialisme", -8, -4, -3, -10),
-            ("Mutualisme", -7, -8, 0, -7),
-            ("Anarquisme Individualista", 0, -10, 0, -8),
-            ("Socialisme de Caviar (Gauche Divine)", -4, -4, 0, -8),
-
-            # --- DRETA I LIBERALISME ---
-            ("Liberalisme Radical (Anarcocapitalisme)", 10, -10, 0, -3),
-            ("Minarquisme", 9, -8, 0, -2),
-            ("Liberal-progressisme", 6, -3, 2, -6),
-            ("Socioliberalisme", 2, -4, 0, -5),
-            ("Conservadorisme moderat", 6, 5, 5, 7),
-            ("Democràcia Cristiana", 3, 4, -4, 7),
-            ("Neoconservadorisme (Bush)", 7, 7, 0, 8),
-            ("Tecnocràcia", 2, 6, 0, -4),
-
-            # --- REACCIONARISME I TERCERA VIA ---
-            ("Carlisme Tradicionalista", -2, 8, -3, 10),
-            ("Nacional-Bolxevisme (Nazbol)", -9, 10, 0, 10),
-            ("Extrema Dreta Alternativa (Alt-Right)", 8, 8, 8, 10),
-            ("Feixisme Clàssic (Mussolini)", -2, 10, 5, 9),
-            ("Nacionalsocialisme (Nazi)", 2, 10, 10, 10),
-            ("Ecofeixisme", -2, 9, 0, 8),
-            ("Distributisme", -3, 3, 0, 8),
-            ("Populisme de Dretes", 4, 7, 6, 9),
-            ("Progressisme Woke", -6, 2, 0, -10),
+            ("Nacionalisme Espanyol Radical", 8, 9, 10, 10, "Unitarisme espanyol intransigent que defensa l'estat fort, la recentralització i la tradició catòlica."),
+            ("Federalisme d'Esquerres", -7, -3, 3, -9, "Transformació republicana d'Espanya cap a un model plurinacional amb forta intervenció econòmica."),
+            ("Socialdemocràcia Constitucionalista", -4, 2, 6, -5, "Reformisme de centre-esquerra basat en la Constitució del 78 i l'harmonia autonòmica."),
+            ("Aznarisme / Dreta Unificada", 7, 6, 8, 8, "Liberal-conservadorisme centralista: mercat lliure, atlantisme i unitat d'Espanya sense concessions."),
+            ("Falangisme (Nacional-Sindicalisme)", -5, 10, 10, 9, "Feixisme espanyol clàssic: estat totalitari i superació de la lluita de classes mitjançant el sindicat vertical."),
+            ("Nacional-Sindicalisme (Ledesma Ramos)", -8, 10, 10, 8, "Puresa feixista revolucionària: odi a la burgesia i a l'esquerra en favor d'una 'dictadura nacional' dels treballadors."),
+            ("Lerrouxisme", -3, 4, 9, -8, "Populisme espanyolista de base obrera amb un marcat caràcter anticlerical i contrari a l'elitisme catalanista."),
+            ("Regionalisme No-Nacionalista", 2, 2, 4, 3, "Defensa de les particularitats locals com a forma d'enriquir la unitat indissoluble de la nació espanyola."),
         
-            # --- EL QUE ET FALTA PER COMPLETAR EL MAPA ---
-            ("Centrisme Liberal / Moderat", 2, -2, 0, 0),
-            ("Anarcoprimitivisme", -10, -10, 0, -5),
-            ("Dreta Il·liberal Identitària", 4, 8, -10, 10),
+            # --- ESQUERRA RADICAL I FILOSÒFIQUES ---
+            ("Revolucionarisme", -10, 6, -2, -9, "Destrucció de l'estat burgès mitjançant l'acció directa i la dictadura del proletariat o del partit."),
+            ("Anarcosindicalisme", -10, -10, -3, -9, "Gestió col·lectiva de la societat mitjançant sindicats, sense estats, fronteres ni jerarquies."),
+            ("Comunisme Marxista-Leninista", -10, 9, -5, -6, "Economia planificada i avantguarda política per eliminar les classes socials des de l'Estat."),
+            ("Estalinisme", -10, 10, 0, 2, "Model soviètic de control total: industrialització forçada, centralisme burocràtic i repressió dissident."),
+            ("Trotskisme", -10, 4, 0, -10, "Defensa de la revolució permanent i crítica radical a la burocratització de l'estat obrer."),
+            ("Maoisme", -9, 9, 0, -5, "Guerra popular i revolució cultural constant contra el revisionisme i el capitalisme."),
+            ("Eco-socialisme", -8, -4, -3, -10, "Síntesi de marxisme i ecologia: decreixement econòmic i gestió pública dels recursos naturals."),
+            ("Mutualisme", -7, -8, 0, -7, "Anarquisme de mercat: intercanvi lliure entre cooperatives sense acumulació de capital."),
+            ("Anarquisme Individualista", 0, -10, 0, -8, "Sobirania absoluta de l'individu sobre qualsevol col·lectivitat o institució imposada."),
+            ("Socialisme de Caviar (Gauche Divine)", -4, -4, 0, -8, "Progressisme de classe alta que combina l'hedonisme cultural amb una retòrica d'esquerres inofensiva."),
+        
+            # --- DRETA I LIBERALISME ---
+            ("Liberalisme Radical (Anarcocapitalisme)", 10, -10, 0, -3, "Lliure mercat absolut on totes les funcions de l'estat, inclosa la seguretat, són privades."),
+            ("Minarquisme", 9, -8, 0, -2, "L'Estat només ha d'existir per protegir la propietat privada, la vida i la llibertat."),
+            ("Liberal-progressisme", 6, -3, 2, -6, "Capitalisme global combinat amb una agenda de llibertats civils i laïcitat radical."),
+            ("Socioliberalisme", 2, -4, 0, -5, "Defensa del mercat lliure amb correccions estatals puntuals per garantir la igualtat d'oportunitats."),
+            ("Conservadorisme moderat", 6, 5, 5, 7, "Pragmatisme, seguretat jurídica i preservació de les institucions socials tradicionals."),
+            ("Democràcia Cristiana", 3, 4, -4, 7, "Economia social de mercat inspirada en la doctrina social de l'Església: família i subsidiarietat."),
+            ("Neoconservadorisme (Bush)", 7, 7, 0, 8, "Expansió de la democràcia liberal mitjançant la força militar i defensa de la moralitat tradicional."),
+            ("Tecnocràcia", 2, 6, 0, -4, "Gestió de la cosa pública basada exclusivament en l'eficiència, la ciència i el criteri d'experts."),
+        
+            # --- REACCIONARISME I TERCERA VIA ---
+            ("Carlisme Tradicionalista", -2, 8, -3, 10, "Lema: Déu, Pàtria, Furs i Rei. Oposició frontal a la democràcia liberal i al centralisme."),
+            ("Nacional-Bolxevisme (Nazbol)", -9, 10, 0, 10, "Síntesi d'extrema esquerra econòmica i ultranacionalisme identitari i militarista."),
+            ("Extrema Dreta Alternativa (Alt-Right)", 8, 8, 8, 10, "Reacció contra el multiculturalisme i el progressisme mitjançant el nacionalisme digital i identitari."),
+            ("Feixisme Clàssic (Mussolini)", -2, 10, 5, 9, "Tot dins l'Estat, res fora de l'Estat, res contra l'Estat. Corporativisme i expansió nacional."),
+            ("Nacionalsocialisme (Nazi)", 2, 10, 10, 10, "Totalitarisme basat en la jerarquia racial, l'espai vital i la subordinació total de l'economia a la raça."),
+            ("Ecofeixisme", -2, 9, 0, 8, "Autoritarisme verd que justifica la repressió i el control de fronteres per preservar l'ecosistema nacional."),
+            ("Distributisme", -3, 3, 0, 8, "Proposta econòmica catòlica que busca que la propietat estigui repartida entre molts, no en mans de l'Estat o de pocs capitalistes."),
+            ("Populisme de Dretes", 4, 7, 6, 9, "Defensa del 'poble' contra l'elit cosmopolita, amb un fort èmfasi en la seguretat i la sobirania nacional."),
+            ("Progressisme Woke", -6, 2, 0, -10, "Justícia social centrada en la deconstrucció de privilegis i la política d'identitat (gènere, raça, sexualitat)."),
+        
+            # --- COMPLETAR MAPA ---
+            ("Centrisme Liberal / Moderat", 2, -2, 0, 0, "Pragmatisme centrat en l'estabilitat política, el consens i una economia mixta poc ideologitzada."),
+            ("Anarcoprimitivisme", -10, -10, 0, -5, "Rebuig total a la civilització industrial i retorn a la vida caçadora-recol·lectora per recuperar la llibertat salvatge."),
+            ("Dreta Il·liberal Identitària", 4, 8, -10, 10, "Nacionalisme català d'ordre que rebutja el liberalisme multicultural en favor d'una identitat forta i valors occidentals."),
         ]
         
         st.subheader("Afinitat ideològica")
         resultats_afinitat = []
-        for nom, e, a, n, c in ideologies:
+        for nom, e, a, n, c, desc in ideologies:
             dist = np.sqrt((r["Econ"] - e)**2 + (r["Auth"] - a)**2 + (r["Nac"] - n)**2 + (r["Cult"] - c)**2)
             max_dist = np.sqrt((20)**2 * 4)
             p = max(0, 100 * (1 - dist / max_dist))
-            resultats_afinitat.append((nom, p))
+            resultats_afinitat.append((nom, p, desc))
 
         resultats_afinitat.sort(key=lambda x: x[1], reverse=True)
         for nom, p in resultats_afinitat[:10]:
             st.write(f"**{nom}**: {round(p,1)}%")
             st.progress(p/100)
-            
+            st.markdown("---")
+
+    if st.button("🔍 Veure totes les ideologies"):
+        st.subheader("Mapa complet d'ideologies")
+    
+        for nom, p, desc in resultats_afinitat:
+            with st.expander(f"{nom} — {round(p,1)}%"):
+                st.write(desc)
+                st.progress(p/100)
         # ---------------------------
         # GRÀFIQUES
         # ---------------------------
