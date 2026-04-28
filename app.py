@@ -276,6 +276,7 @@ if submitted:
         ("Centrisme Liberal / Moderat", 2, -2, 0, 0, "Pragmatisme i estabilitat política."),
         ("Anarcoprimitivisme", -10, -10, 0, -5, "Rebuig a la civilització industrial."),
         ("Dreta Il·liberal Identitària", 4, 8, -10, 10, "Nacionalisme català d'ordre identitari."),
+        ("Socialisme d'Alliberament Nacional", -9, -3, -10, -3, "Alliberament nacional i social mitjançant la ruptura independentista."),
     ]
 
     # Guardem les ideologies a la sessió per a la visualització posterior
