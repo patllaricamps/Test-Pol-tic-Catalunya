@@ -96,7 +96,7 @@ preguntes = [
     ("El servei militar o cívic (per a la teva nació) hauria de ser obligatori.", "Auth", True),
     ("L'Estat ha d'expropiar béns a polítics i banquers corruptes.", [("Auth", True), ("Econ", False)], True),
     ("La prostitució ha de ser eradicada penalitzant els clients.", "Auth", True),
-    ("S'haurien de legalitzar totes les drogues.", [("Auth", False), ("Cult", False)], False),
+    ("S'haurien de legalitzar totes les drogues.", [("Auth", False), ("Cult", False)], True),
     ("Els jutges han de tenir l'última paraula per damunt dels parlaments.", "Auth", True),
     ("El sistema penitenciari ha de centrar-se només en la reinserció.", "Auth", False),
     ("Tots els policies han de portar càmeres enregistrant les actuacions.", "Auth", False),
@@ -112,8 +112,8 @@ preguntes = [
     ("L’avortament ha de ser legal, lliure i gratuït.", "Cult", False),
     ("La família tradicional és la cèl·lula ideal de la societat.", "Cult", True),
     ("El multiculturalisme és positiu i enriquidor.", "Cult", False),
-    ("Cal penalitzar el vehicle privat per motius ecologistes.", [("Auth", True), ("Cult", False), ("Econ", False)], False),
-    ("Les renovables han de passar per davant del creixement econòmic.", [("Cult", False), ("Econ", False)], False),
+    ("Cal penalitzar el vehicle privat per motius ecologistes.", [("Auth", True), ("Cult", False), ("Econ", False)], True),
+    ("Les renovables han de passar per davant del creixement econòmic.", [("Cult", False), ("Econ", False)], True),
     ("S'ha de defensar la identitat autòctona davant d'influències externes.", "Cult", True),
     ("Totes les cultures són igualment respectables.", "Cult", False),
     ("El moviment feminista actual és imprescindible.", "Cult", False),
@@ -319,13 +319,13 @@ if submitted:
             st.progress(p/100)
             st.markdown("---")
 
-    if st.button("🔍 Veure totes les ideologies"):
-        st.subheader("Mapa complet d'ideologies")
-    
-        for nom, p, desc in resultats_afinitat:
-            with st.expander(f"{nom} — {round(p,1)}%"):
-                st.write(desc)
-                st.progress(p/100)
+        if st.button("🔍 Veure totes les ideologies"):
+            st.subheader("Mapa complet d'ideologies")
+        
+            for nom, p, desc in resultats_afinitat:
+                with st.expander(f"{nom} — {round(p,1)}%"):
+                    st.write(desc)
+                    st.progress(p/100)
         # ---------------------------
         # GRÀFIQUES
         # ---------------------------
