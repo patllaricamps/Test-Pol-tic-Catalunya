@@ -368,7 +368,7 @@ if st.session_state["resultats"]:
                 st.progress(p/100)
 
         # ---------------------------------------------------
-        # NOUS GRÀFICS INTERACTIUS AMB TOTES LES IDEOLOGIES (QUADRATS)
+        # NOUS GRÀFICS INTERACTIUS AMB TOTES LES IDEOLOGIES (rescalats, sense mida fixa)
         # ---------------------------------------------------
         st.subheader("📍 Posicionament al mapa ideològic complet")
         ideologies = st.session_state.get("ideologies", [])
@@ -405,9 +405,9 @@ if st.session_state["resultats"]:
             title="Econòmic / Autoritat",
             xaxis=dict(title="← Esq | Dre →", range=[-11, 11], zeroline=True, zerolinecolor='black'),
             yaxis=dict(title="← Lib | Auth →", range=[-11, 11], zeroline=True, zerolinecolor='black',
-                       scaleanchor="x", scaleratio=1),   # <-- eix Y quadrat
+                       scaleanchor="x", scaleratio=1),   # Manté els eixos quadrats
             showlegend=True,
-            width=500, height=500  # <-- contenidor quadrat
+            # Sense width ni height → s'adapta al contenidor
         )
         # Fons de colors
         fig_plotly1.add_shape(type="rect", x0=-11, x1=0, y0=0, y1=11, fillcolor="red", opacity=0.1, line=dict(width=0))
@@ -437,9 +437,9 @@ if st.session_state["resultats"]:
             title="Nacional / Cultural",
             xaxis=dict(title="← Cat | Esp →", range=[-11, 11], zeroline=True, zerolinecolor='black'),
             yaxis=dict(title="← Prog | Cons →", range=[-11, 11], zeroline=True, zerolinecolor='black',
-                       scaleanchor="x", scaleratio=1),   # <-- eix Y quadrat
+                       scaleanchor="x", scaleratio=1),   # Manté els eixos quadrats
             showlegend=True,
-            width=500, height=500  # <-- contenidor quadrat
+            # Sense width ni height → s'adapta al contenidor
         )
         fig_plotly2.add_shape(type="rect", x0=-11, x1=0, y0=-11, y1=0, fillcolor="gold", opacity=0.1, line=dict(width=0))
         fig_plotly2.add_shape(type="rect", x0=0, x1=11, y0=-11, y1=0, fillcolor="pink", opacity=0.1, line=dict(width=0))
@@ -448,6 +448,6 @@ if st.session_state["resultats"]:
 
         col_plot1, col_plot2 = st.columns(2)
         with col_plot1:
-            st.plotly_chart(fig_plotly1, use_container_width=False)  # <-- desactivat per mantenir les mides fixes
+            st.plotly_chart(fig_plotly1, use_container_width=True)   # Adapta l'amplada a la columna
         with col_plot2:
-            st.plotly_chart(fig_plotly2, use_container_width=False)
+            st.plotly_chart(fig_plotly2, use_container_width=True)
