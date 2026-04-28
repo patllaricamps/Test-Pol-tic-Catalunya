@@ -96,7 +96,7 @@ preguntes = [
     ("La instal·lació de càmeres de reconeixement facial aporta seguretat.", "Auth", True),
     ("Els delictes greus s'haurien de castigar amb la cadena perpètua.", "Auth", True),
     ("Idealment, l'Estat no hauria d'existir.", "Auth", False),
-    ("S'han d'il·legalitzar partits que vulguin subvertir la Constitució.", "Auth", True),
+    ("S'han d'il·legalitzar partits que vulguin subvertir la Constitució (de la teva nació).", "Auth", True),
     ("La llibertat d'expressió ha de ser absoluta.", "Auth", False),
     ("El rastreig de comunicacions és justificable per prevenir atemptats.", "Auth", True),
     ("L'obediència i el respecte a la jerarquia són fonamentals.", "Auth", True),
@@ -105,7 +105,7 @@ preguntes = [
     ("Tallar carreteres en protestes ha de comportar presó.", "Auth", True),
     ("La desobediència civil pacífica és un deure moral.", "Auth", False),
     ("Les èpoques difícils demanen líders forts i de mà dura.", "Auth", True),
-    ("El servei militar o cívic hauria de ser obligatori.", "Auth", True),
+    ("El servei militar o cívic (per a la teva nació) hauria de ser obligatori.", "Auth", True),
     ("L'Estat ha d'expropiar béns a polítics i banquers corruptes.", [("Auth", True), ("Econ", False)], True),
     ("La prostitució ha de ser eradicada penalitzant els clients.", "Auth", True),
     ("S'haurien de legalitzar totes les drogues.", [("Auth", False), ("Cult", False)], True),
@@ -113,7 +113,7 @@ preguntes = [
     ("El sistema penitenciari ha de centrar-se només en la reinserció.", "Auth", False),
     ("Tots els policies han de portar càmeres enregistrant les actuacions.", "Auth", False),
     ("L'Estat pot confinar obligatòriament la població en emergències.", "Auth", True),
-    ("Cremar banderes hauria de considerar-se delicte de presó.", "Auth", True),
+    ("Cremar banderes (de qualsevol nació) hauria de considerar-se delicte de presó.", "Auth", True),
     ("Cal aplicar lleis antiterroristes a activistes radicals encara que no usin armes.", "Auth", True),
 
     # CULTURAL
