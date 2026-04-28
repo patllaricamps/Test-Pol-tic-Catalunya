@@ -143,7 +143,7 @@ preguntes = [
     ("La tauromàquia s'ha de protegir.", "Cult", True),
     ("L'eutanàsia hauria de ser legal i fàcilment accessible.", "Cult", False),
     ("L'excés de correcció política amenaça la llibertat.", "Cult", True),
-    ("L'uso del llenguatge inclusiu és una imposició ridícula.", "Cult", True),
+    ("L'ús del llenguatge inclusiu és una imposició ridícula.", "Cult", True),
     ("Parelles del mateix sexe han de poder adoptar.", "Cult", False),
     ("L'home blanc heterosexual gaudeix de privilegis invisibles.", "Cult", False),
     ("S'han de retirar estàtues lligades al colonialisme.", "Cult", False),
