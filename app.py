@@ -245,7 +245,7 @@ if submitted:
         ("Falangisme (Nacional-Sindicalisme)", -5, 10, 10, 9, "Feixisme espanyol clàssic i sindicat vertical."),
         ("Nacional-Sindicalisme (Ledesma Ramos)", -8, 10, 10, 8, "Puresa feixista revolucionària."),
         ("Lerrouxisme", -3, 4, 9, -8, "Populisme espanyolista de base obrera anticlerical."),
-        ("Regionalisme No-Nacionalista", 2, 2, 4, 3, "Defensa de lo local dins la unitat d'Espanya."),
+        ("Regionalisme No-Nacionalista", 2, 2, 4, 3, "Defensa del que és local dins la unitat d'Espanya."),
         ("Revolucionarisme", -10, 6, -2, -9, "Destrucció de l'estat burgès i acció directa."),
         ("Anarcosindicalisme", -10, -10, -3, -9, "Gestió col·lectiva sense estats ni jerarquies."),
         ("Comunisme Marxista-Leninista", -10, 9, -5, -6, "Economia planificada i avantguarda política."),
@@ -368,7 +368,7 @@ if st.session_state["resultats"]:
                 st.progress(p/100)
 
         # ---------------------------------------------------
-        # NOUS GRÀFICS INTERACTIUS AMB TOTES LES IDEOLOGIES (rescalats, sense mida fixa)
+        # NOUS GRÀFICS INTERACTIUS AMB TOTES LES IDEOLOGIES (quadrats adaptables)
         # ---------------------------------------------------
         st.subheader("📍 Posicionament al mapa ideològic complet")
         ideologies = st.session_state.get("ideologies", [])
@@ -405,9 +405,8 @@ if st.session_state["resultats"]:
             title="Econòmic / Autoritat",
             xaxis=dict(title="← Esq | Dre →", range=[-11, 11], zeroline=True, zerolinecolor='black'),
             yaxis=dict(title="← Lib | Auth →", range=[-11, 11], zeroline=True, zerolinecolor='black',
-                       scaleanchor="x", scaleratio=1),   # Manté els eixos quadrats
+                       scaleanchor="x", scaleratio=1),
             showlegend=True,
-            # Sense width ni height → s'adapta al contenidor
         )
         # Fons de colors
         fig_plotly1.add_shape(type="rect", x0=-11, x1=0, y0=0, y1=11, fillcolor="red", opacity=0.1, line=dict(width=0))
@@ -437,9 +436,8 @@ if st.session_state["resultats"]:
             title="Nacional / Cultural",
             xaxis=dict(title="← Cat | Esp →", range=[-11, 11], zeroline=True, zerolinecolor='black'),
             yaxis=dict(title="← Prog | Cons →", range=[-11, 11], zeroline=True, zerolinecolor='black',
-                       scaleanchor="x", scaleratio=1),   # Manté els eixos quadrats
+                       scaleanchor="x", scaleratio=1),
             showlegend=True,
-            # Sense width ni height → s'adapta al contenidor
         )
         fig_plotly2.add_shape(type="rect", x0=-11, x1=0, y0=-11, y1=0, fillcolor="gold", opacity=0.1, line=dict(width=0))
         fig_plotly2.add_shape(type="rect", x0=0, x1=11, y0=-11, y1=0, fillcolor="pink", opacity=0.1, line=dict(width=0))
@@ -448,6 +446,6 @@ if st.session_state["resultats"]:
 
         col_plot1, col_plot2 = st.columns(2)
         with col_plot1:
-            st.plotly_chart(fig_plotly1, use_container_width=True)   # Adapta l'amplada a la columna
+            st.plotly_chart(fig_plotly1, width='stretch')
         with col_plot2:
-            st.plotly_chart(fig_plotly2, use_container_width=True)
+            st.plotly_chart(fig_plotly2, width='stretch')
