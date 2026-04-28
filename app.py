@@ -314,7 +314,7 @@ if submitted:
             resultats_afinitat.append((nom, p, desc))
 
         resultats_afinitat.sort(key=lambda x: x[1], reverse=True)
-        for nom, p in resultats_afinitat[:10]:
+        for nom, p, desc in resultats_afinitat[:10]:
             st.write(f"**{nom}**: {round(p,1)}%")
             st.progress(p/100)
             st.markdown("---")
