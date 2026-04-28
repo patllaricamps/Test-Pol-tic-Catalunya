@@ -46,7 +46,7 @@ preguntes = [
     ("L'economia cooperativa és millor que el capitalisme tradicional.", "Econ", False),
     ("Flexibilitzar el mercat laboral i l'acomiadament redueix l'atur.", "Econ", True),
     ("S'hauria d'implementar una Renda Bàsica Universal per a tothom.", "Econ", False),
-    ("L'Estat ha d'actuar com a motor econòmic quand el sector privat falla.", "Econ", False),
+    ("L'Estat ha d'actuar com a motor econòmic quant el sector privat falla.", "Econ", False),
     ("L'edat de jubilació s'hauria de retardar per garantir les pensions.", "Econ", True),
     ("Els fons voltor que especulen amb l'habitatge han de ser expulsats.", "Econ", False),
     ("El dret a la propietat privada és absolut i intocable.", "Econ", True),
